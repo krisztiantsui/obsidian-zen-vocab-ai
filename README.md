@@ -104,9 +104,9 @@ npm run build  # 生产构建
 <p align="center">
   <a href="https://buymeacoffee.com/krisztiantsui" target="_blank">☕ Buy Me a Coffee</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  💙 支付宝 (设置页扫码)
+  💙 支付宝 (扫码)
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  💚 微信赞赏 (设置页扫码)
+  💚 微信赞赏 (扫码)
 </p>
 
 ---
