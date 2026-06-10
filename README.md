@@ -111,6 +111,12 @@ npm run build  # 生产构建
 
 ---
 
+## 🤖 致谢
+
+本项目在 [Claude Code](https://claude.com/claude-code) 辅助下开发完成。Claude Code 是 Anthropic 推出的命令行 AI 编程助手，支持代码生成、重构、调试、文档撰写等全流程软件工程任务。
+
+---
+
 ## 📄 License
 
 MIT © [krisztiantsui](https://github.com/krisztiantsui)
