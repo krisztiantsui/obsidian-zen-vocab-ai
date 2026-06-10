@@ -1528,10 +1528,8 @@ var QRCodeModal = class extends import_obsidian.Modal {
     contentEl.createEl("h3", { text: this.title, cls: "vocab-qrcode-title" });
     const imgWrapper = contentEl.createDiv({ cls: "vocab-qrcode-img-wrapper" });
     try {
-      const adapter = this.app.vault.adapter;
-      const basePath = adapter.basePath || "";
-      const fullPath = `${basePath}/.obsidian/plugins/obsidian-zen-vocab-ai/${this.imgFile}`;
-      const arrayBuffer = await adapter.readBinary(fullPath);
+      const vaultRelativePath = `.obsidian/plugins/obsidian-zen-vocab-ai/${this.imgFile}`;
+      const arrayBuffer = await this.app.vault.adapter.readBinary(vaultRelativePath);
       const bytes = new Uint8Array(arrayBuffer);
       const chunks = [];
       const CHUNK = 8192;

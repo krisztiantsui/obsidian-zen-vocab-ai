@@ -1525,13 +1525,10 @@ class QRCodeModal extends Modal {
 
         const imgWrapper = contentEl.createDiv({ cls: 'vocab-qrcode-img-wrapper' });
 
-        // Read QR image from plugin directory (relative to vault)
+        // Read QR image from plugin directory (vault-relative path)
         try {
-            const adapter = this.app.vault.adapter;
-            const basePath = (adapter as any).basePath || '';
-            const fullPath = `${basePath}/.obsidian/plugins/obsidian-zen-vocab-ai/${this.imgFile}`;
-
-            const arrayBuffer = await adapter.readBinary(fullPath);
+            const vaultRelativePath = `.obsidian/plugins/obsidian-zen-vocab-ai/${this.imgFile}`;
+            const arrayBuffer = await this.app.vault.adapter.readBinary(vaultRelativePath);
             const bytes = new Uint8Array(arrayBuffer);
             const chunks: string[] = [];
             const CHUNK = 8192;
