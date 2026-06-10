@@ -1834,7 +1834,7 @@ class ZenVocabSettingTab extends PluginSettingTab {
         });
         coffeeBtn.style.cssText = 'margin-right: 8px;';
         coffeeBtn.onclick = () => {
-            window.open('https://www.buymeacoffee.com/yourname', '_blank');
+            window.open('https://buymeacoffee.com/krisztiantsui', '_blank');
         };
 
         const alipayBtn = btnGroup.createEl('button', {
