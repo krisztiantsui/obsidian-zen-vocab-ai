@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1219"/>
+      <stop offset="100%" style="stop-color:#1a1f2e"/>
+    </linearGradient>
+    <linearGradient id="petalGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b9c;stop-opacity:0.15"/>
+      <stop offset="40%" style="stop-color:#ff6b9c;stop-opacity:0.45"/>
+      <stop offset="100%" style="stop-color:#92f7e6;stop-opacity:0.85"/>
+    </linearGradient>
+    <linearGradient id="centerGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#92f7e6"/>
+      <stop offset="100%" style="stop-color:#5a9e8f"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="250" fill="url(#bg)" stroke="#ff6b9c" stroke-width="3" stroke-opacity="0.15"/>
+
+  <!-- Subtle outer ring -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#92f7e6" stroke-width="0.8" stroke-opacity="0.12" stroke-dasharray="8 18"/>
+
+  <!-- Inner glow behind lotus -->
+  <circle cx="256" cy="256" r="140" fill="#92f7e6" fill-opacity="0.04" filter="url(#softGlow)"/>
+
+  <!-- ====== LOTUS POD ====== -->
+  <g transform="translate(256, 256)" filter="url(#glow)">
+
+    <!-- Outer petals (12 petals) -->
+    <g opacity="0.55">
+      <g transform="rotate(0)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(30)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(60)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(90)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(120)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(150)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(180)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(210)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(240)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(270)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(300)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g transform="rotate(330)"><path d="M0,-95 C-16,-140 -34,-155 -28,-185 C-22,-205 -10,-212 0,-206 C10,-212 22,-205 28,-185 C34,-155 16,-140 0,-95z" fill="none" stroke="#ff6b9c" stroke-width="3.5" stroke-linecap="round"/></g>
+    </g>
+
+    <!-- Inner petals (8 petals, offset 15°) -->
+    <g opacity="0.7">
+      <g transform="rotate(15)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(60)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(105)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(150)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(195)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(240)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(285)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="rotate(330)"><path d="M0,-68 C-12,-104 -26,-120 -22,-142 C-18,-154 -8,-160 0,-155 C8,-160 18,-154 22,-142 C26,-120 12,-104 0,-68z" fill="none" stroke="#92f7e6" stroke-width="2.8" stroke-linecap="round"/></g>
+    </g>
+
+    <!-- Center ellipse (pod base) -->
+    <ellipse cx="0" cy="0" rx="48" ry="44" fill="#141b24" stroke="url(#centerGrad)" stroke-width="2" opacity="0.9"/>
+
+    <!-- Seed holes (lotus seeds pattern) -->
+    <circle cx="0" cy="0" r="5" fill="#92f7e6" opacity="0.6"/>
+    <circle cx="26" cy="0" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="20" cy="-18" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="0" cy="-22" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="-20" cy="-18" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="-26" cy="0" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="-20" cy="18" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="0" cy="22" r="4.5" fill="#92f7e6" opacity="0.5"/>
+    <circle cx="20" cy="18" r="4.5" fill="#92f7e6" opacity="0.5"/>
+  </g>
+
+  <!-- Small decorative dot -->
+  <circle cx="256" cy="410" r="1.5" fill="#ff6b9c" opacity="0.3"/>
+</svg>

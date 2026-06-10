@@ -1,0 +1,1217 @@
+/* ================================================================
+   忘·言 AI | ZenVocab AI — Frog BuJo Style
+   Design language: capsule pills, subtle rgba layers, cyan-pink palette
+   ================================================================ */
+
+/* --- 1. Theme Variables (Bujo Palette) --- */
+.vocab-view-container {
+    --zen-cyan: #92f7e6;
+    --zen-cyan-rgb: 146, 247, 230;
+    --zen-pink: #ff6b9c;
+    --zen-pink-rgb: 255, 107, 156;
+    --zen-blue: #70a0ff;
+    --zen-blue-rgb: 112, 160, 255;
+    --zen-green: #5b8e39;
+    --zen-green-rgb: 91, 142, 57;
+    --zen-amber: #a1763a;
+    --zen-amber-rgb: 161, 118, 58;
+    --zen-idle: #7c7c92;
+    --zen-idle-rgb: 124, 124, 146;
+    --zen-line: rgba(var(--zen-cyan-rgb), 0.22);
+    --zen-soft: rgba(var(--zen-cyan-rgb), 0.08);
+    --zen-soft-strong: rgba(var(--zen-cyan-rgb), 0.13);
+    --zen-pink-soft: rgba(var(--zen-pink-rgb), 0.12);
+    --zen-radius: 16px;
+    --zen-radius-sm: 10px;
+    --zen-radius-xs: 6px;
+    --zen-shadow: 0 2px 8px rgba(10, 18, 33, 0.04), 0 1px 3px rgba(10, 18, 33, 0.03);
+    --zen-shadow-md: 0 8px 24px rgba(10, 18, 33, 0.06), 0 2px 6px rgba(10, 18, 33, 0.04);
+    --zen-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    padding: 20px 22px 24px;
+    gap: 16px;
+    box-sizing: border-box;
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-family: var(--font-interface);
+    font-size: var(--vocab-base-size, 13px);
+}
+
+/* Theme body classes — overrides applied via JS */
+body.vocab-theme-modern  { /* frog palette */ }
+body.vocab-theme-zen    { /* pond palette */ }
+body.vocab-theme-dao    { /* dusk palette */ }
+body.vocab-theme-frog   { /* frog palette (legacy) */ }
+
+/* --- 2. Scrollbar --- */
+.vocab-view-container ::-webkit-scrollbar { width: 5px; }
+.vocab-view-container ::-webkit-scrollbar-track { background: transparent; }
+.vocab-view-container ::-webkit-scrollbar-thumb { background: rgba(var(--zen-cyan-rgb), 0.18); border-radius: 999px; }
+.vocab-view-container ::-webkit-scrollbar-thumb:hover { background: rgba(var(--zen-cyan-rgb), 0.32); }
+
+/* --- 3. Review Content Wrapper --- */
+.vocab-review-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* --- 4. Input Section --- */
+.vocab-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+/* --- 5. Brand Header --- */
+.vocab-brand-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+}
+
+.vocab-brand-icon {
+    color: var(--zen-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.vocab-brand-icon svg {
+    width: 28px !important;
+    height: 28px !important;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.85px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    overflow: visible;
+    filter: drop-shadow(0 2px 8px rgba(var(--zen-green-rgb), 0.22));
+    transition: transform var(--zen-transition);
+}
+
+.vocab-brand-icon svg:hover {
+    transform: scale(1.12) rotate(10deg);
+}
+
+.vocab-brand-text {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    color: var(--zen-pink);
+    background: none;
+    -webkit-text-fill-color: var(--zen-pink);
+}
+
+/* --- 6. Mode Pills (Word/Sentence Toggle) --- */
+.vocab-mode-pills {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    background: rgba(var(--zen-cyan-rgb), 0.04);
+    border-radius: 999px;
+    border: 1px solid rgba(var(--zen-cyan-rgb), 0.08);
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.vocab-mode-pill {
+    position: relative;
+    padding: 5px 14px;
+    color: rgba(var(--zen-idle-rgb), 0.82);
+    cursor: pointer;
+    font-size: 11.5px;
+    font-weight: 550;
+    border-radius: 999px;
+    transition: all var(--zen-transition);
+    white-space: nowrap;
+}
+
+.vocab-mode-pill:hover {
+    color: var(--zen-cyan);
+    background: rgba(var(--zen-cyan-rgb), 0.06);
+}
+
+.vocab-mode-pill.is-active {
+    color: var(--zen-pink);
+    background: rgba(var(--zen-pink-rgb), 0.15);
+    font-weight: 600;
+}
+
+.vocab-mode-pill-label { pointer-events: none; }
+
+/* --- 7. Smart Textarea --- */
+.vocab-smart-textarea {
+    width: 100%;
+    box-sizing: border-box !important;
+    padding: 8px 16px !important;
+    border-radius: 999px !important;
+    background: rgba(var(--zen-cyan-rgb), 0.035) !important;
+    border: 1.5px solid rgba(var(--zen-cyan-rgb), 0.14) !important;
+    color: var(--text-normal);
+    font-size: 13px;
+    line-height: 1.4 !important;
+    outline: none;
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    overflow: hidden;
+    transition: all var(--zen-transition);
+    box-shadow: none !important;
+    font-family: var(--font-interface) !important;
+    resize: none;
+    white-space: nowrap;
+}
+
+.vocab-smart-textarea:hover {
+    border-color: rgba(var(--zen-cyan-rgb), 0.25);
+    background: rgba(var(--zen-cyan-rgb), 0.05) !important;
+}
+
+.vocab-smart-textarea:focus {
+    border-color: rgba(var(--zen-cyan-rgb), 0.4) !important;
+    box-shadow: 0 0 0 3px rgba(var(--zen-cyan-rgb), 0.08) !important;
+    outline: none;
+    background: rgba(var(--zen-cyan-rgb), 0.06) !important;
+}
+
+.vocab-smart-textarea::placeholder {
+    color: rgba(var(--zen-idle-rgb), 0.5);
+}
+
+/* --- 8. Input Action Bar --- */
+.vocab-input-action-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    width: 100%;
+}
+
+.vocab-input-action-bar .vocab-search-wrapper {
+    flex: 1;
+}
+
+.vocab-input-action-bar .vocab-unified-ai-btn {
+    flex-shrink: 0;
+}
+
+/* --- 9. Buttons (Bujo Pill Style) --- */
+button.vocab-btn-save {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 7px 18px !important;
+    height: auto !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    border-radius: 999px !important;
+    border: 1.5px solid transparent !important;
+    background: rgba(var(--zen-cyan-rgb), 0.06) !important;
+    color: rgba(var(--zen-idle-rgb), 0.85) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: all var(--zen-transition) !important;
+    font-family: var(--font-interface) !important;
+}
+
+button.vocab-btn-save::before,
+button.vocab-btn-save::after {
+    display: none !important;
+    content: none !important;
+}
+
+button.vocab-btn-save:hover {
+    background: rgba(var(--zen-pink-rgb), 0.1) !important;
+    color: var(--zen-pink) !important;
+    border-color: rgba(var(--zen-pink-rgb), 0.2) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: none !important;
+}
+
+button.vocab-btn-save:active {
+    transform: translateY(0) !important;
+}
+
+button.vocab-btn-save.is-saved {
+    background: rgba(var(--zen-green-rgb), 0.1) !important;
+    color: var(--zen-green) !important;
+    border-color: rgba(var(--zen-green-rgb), 0.2) !important;
+    cursor: default !important;
+}
+
+/* Primary action (AI button) */
+button.vocab-btn-save.is-primary-action,
+.vocab-unified-ai-btn {
+    background: var(--zen-pink) !important;
+    color: #fff !important;
+    font-weight: 650 !important;
+    box-shadow: 0 2px 8px rgba(var(--zen-pink-rgb), 0.25) !important;
+    border-color: transparent !important;
+}
+
+button.vocab-btn-save.is-primary-action:hover,
+.vocab-unified-ai-btn:hover {
+    box-shadow: 0 4px 14px rgba(var(--zen-pink-rgb), 0.35) !important;
+    transform: translateY(-2px) !important;
+    background: var(--zen-pink) !important;
+    color: #fff !important;
+}
+
+/* --- 10. Dividers --- */
+.vocab-divider {
+    border: 0;
+    height: 1px;
+    background: rgba(var(--zen-cyan-rgb), 0.12);
+    margin: 4px 0 4px 0;
+}
+
+/* --- 11. AI Results Section --- */
+.vocab-ai-results-section {
+    border: 1.5px dashed rgba(var(--zen-cyan-rgb), 0.22);
+    border-radius: var(--zen-radius);
+    padding: 16px 18px;
+    margin-top: 4px;
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+}
+
+.vocab-ai-results-section .vocab-card {
+    border-radius: var(--zen-radius-sm);
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+    border: 1px solid rgba(var(--zen-cyan-rgb), 0.08);
+    box-shadow: none !important;
+    transform: none !important;
+    margin-bottom: 10px;
+}
+
+.vocab-ai-results-section .vocab-card:last-child { margin-bottom: 0; }
+
+.vocab-ai-results-section .vocab-card:hover {
+    background: rgba(var(--zen-cyan-rgb), 0.07) !important;
+    border-color: rgba(var(--zen-cyan-rgb), 0.15);
+    transform: translateY(-1px) !important;
+    box-shadow: var(--zen-shadow) !important;
+}
+
+/* --- 12. Top Bar & Toolbar --- */
+.vocab-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.vocab-list-title {
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--zen-blue);
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+}
+
+.vocab-tool-group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
+/* --- 13. Icon Buttons --- */
+button.vocab-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: rgba(var(--zen-cyan-rgb), 0.5);
+    cursor: pointer;
+    border-radius: var(--zen-radius-xs);
+    transition: all var(--zen-transition);
+}
+
+button.vocab-btn-icon:hover {
+    color: var(--zen-cyan);
+    background: rgba(var(--zen-cyan-rgb), 0.08) !important;
+    transform: translateY(-1px);
+}
+
+button.vocab-btn-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.85px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.vocab-btn-delete:hover {
+    color: var(--zen-pink) !important;
+    background: rgba(var(--zen-pink-rgb), 0.08) !important;
+}
+
+.vocab-btn-mark.is-marked {
+    color: var(--zen-pink) !important;
+}
+
+.vocab-btn-mark.is-marked svg {
+    fill: var(--zen-pink);
+}
+
+.is-spinning svg {
+    animation: zen-spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes zen-spin { 100% { transform: rotate(360deg); } }
+
+/* --- 14. Search Bar (standalone below textarea) --- */
+.vocab-filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.vocab-search-wrapper {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border-radius: 999px;
+    border: 1.5px solid rgba(var(--zen-cyan-rgb), 0.12);
+    background: rgba(var(--zen-cyan-rgb), 0.025);
+    height: 34px;
+    transition: all var(--zen-transition);
+    overflow: hidden;
+    cursor: text;
+}
+
+.vocab-search-wrapper:hover {
+    border-color: rgba(var(--zen-cyan-rgb), 0.25);
+    background: rgba(var(--zen-cyan-rgb), 0.05);
+}
+
+.vocab-search-wrapper:focus-within {
+    width: 100%;
+    border-color: rgba(var(--zen-cyan-rgb), 0.4);
+    box-shadow: 0 0 0 3px rgba(var(--zen-cyan-rgb), 0.07);
+    background: rgba(var(--zen-cyan-rgb), 0.06);
+}
+
+.vocab-search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin-left: 10px;
+    color: rgba(var(--zen-idle-rgb), 0.45);
+}
+
+.vocab-search-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.85px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.vocab-search-wrapper:focus-within .vocab-search-icon {
+    color: var(--zen-cyan);
+}
+
+.vocab-search-wrapper .vocab-search-input {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    flex: 1;
+    min-width: 0;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 10px 0 4px !important;
+    height: 100% !important;
+    color: var(--text-normal);
+    font-size: 11.5px;
+}
+
+.vocab-search-wrapper .vocab-search-input::placeholder {
+    color: rgba(var(--zen-idle-rgb), 0.45);
+    font-size: 11px;
+}
+
+/* --- 15. Context Header --- */
+.vocab-context-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px 0;
+    padding: 0 4px 8px 4px;
+    border-bottom: 1px solid rgba(var(--zen-cyan-rgb), 0.1);
+}
+
+.vocab-focus-mode .vocab-context-header { display: none !important; }
+
+.vocab-context-title {
+    font-size: 13px;
+    font-weight: 650;
+    color: var(--zen-blue) !important;
+    letter-spacing: -0.01em;
+}
+
+.vocab-context-count {
+    font-size: 11px;
+    font-weight: 550;
+    color: rgba(var(--zen-idle-rgb), 0.78);
+    background: rgba(var(--zen-cyan-rgb), 0.06);
+    padding: 3px 10px;
+    border-radius: 999px;
+    cursor: default;
+    transition: all var(--zen-transition);
+}
+
+.vocab-context-count.is-active-filter {
+    cursor: pointer;
+    background: rgba(var(--zen-pink-rgb), 0.12);
+    color: var(--zen-pink);
+}
+
+.vocab-context-count.is-active-filter:hover {
+    background: rgba(var(--zen-pink-rgb), 0.2);
+    transform: scale(1.05);
+}
+
+/* --- 17. Vocab Cards List --- */
+.vocab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 40px;
+    padding-top: 2px;
+    padding-inline: 2px;
+    margin-inline: -2px;
+}
+
+.vocab-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 16px 14px;
+    border-radius: var(--zen-radius-sm);
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+    color: rgba(var(--zen-idle-rgb), 0.7);
+    text-align: center;
+    font-size: 12px;
+    border: 1.5px dashed rgba(var(--zen-cyan-rgb), 0.14);
+    letter-spacing: 0.01em;
+    margin: 0;
+}
+
+/* --- 18. Vocab Card (Bujo Section Card style) --- */
+.vocab-card {
+    border-radius: var(--zen-radius) !important;
+    background: var(--background-secondary);
+    box-shadow: var(--zen-shadow);
+    border: 1px solid rgba(var(--zen-cyan-rgb), 0.06) !important;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: box-shadow var(--zen-transition), transform var(--zen-transition);
+    position: relative;
+}
+
+.vocab-card:hover {
+    box-shadow: var(--zen-shadow-md);
+    transform: translateY(-1px);
+    background: var(--background-secondary);
+}
+
+.theme-dark .vocab-card:hover { background: var(--background-secondary); }
+
+.vocab-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.vocab-title-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Word title */
+.vocab-word {
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--text-normal);
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.vocab-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 3px;
+    flex-wrap: wrap;
+}
+
+/* POS tag — Pill style */
+.vocab-pos-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--zen-pink);
+    background: rgba(var(--zen-pink-rgb), 0.12);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+/* Phonetic */
+.vocab-phonetic-front {
+    font-size: 11.5px;
+    color: rgba(var(--zen-cyan-rgb), 0.85);
+    margin-top: 3px;
+    overflow-wrap: break-word;
+}
+
+.vocab-etymology-preview {
+    font-size: 11px;
+    color: rgba(var(--zen-idle-rgb), 0.78);
+    margin-top: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vocab-word-only-mode .vocab-etymology-preview { display: none !important; }
+
+.vocab-shortdef-front {
+    font-size: 12.5px;
+    color: rgba(var(--zen-idle-rgb), 0.85);
+    margin-top: 6px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vocab-action-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.vocab-btn-group {
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: all var(--zen-transition);
+}
+
+.vocab-card:hover .vocab-btn-group {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.vocab-date-badge {
+    font-size: 10.5px;
+    color: rgba(var(--zen-idle-rgb), 0.7);
+    padding: 2px 0;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* --- 19. Meaning (Expanded Card Detail) --- */
+.vocab-meaning {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(var(--zen-cyan-rgb), 0.1);
+    color: var(--text-normal);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.vocab-meaning h1, .vocab-meaning h2, .vocab-meaning h3 {
+    margin: 10px 0 6px;
+    font-size: 13.5px;
+    color: var(--zen-blue);
+    font-weight: 650;
+}
+
+.vocab-meaning p { margin: 6px 0; }
+.vocab-meaning ul, .vocab-meaning ol { padding-inline-start: 20px; margin: 6px 0; }
+
+.vocab-meaning.is-hidden { display: none !important; }
+
+.vocab-meaning blockquote {
+    margin: 10px 0;
+    padding: 8px 14px;
+    border-left: 3px solid rgba(var(--zen-cyan-rgb), 0.35);
+    background: rgba(var(--zen-cyan-rgb), 0.04);
+    border-radius: 0 var(--zen-radius-xs) var(--zen-radius-xs) 0;
+    color: rgba(var(--zen-idle-rgb), 0.9);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.vocab-meaning blockquote strong { color: var(--zen-pink); font-weight: 650; }
+.vocab-meaning em { color: var(--zen-cyan); }
+
+/* --- 20. View Modes --- */
+.vocab-word-only-mode .vocab-meta-row,
+.vocab-word-only-mode .vocab-phonetic-front,
+.vocab-word-only-mode .vocab-etymology-preview,
+.vocab-word-only-mode .vocab-shortdef-front,
+.vocab-word-only-mode .vocab-date-badge,
+.vocab-word-only-mode .vocab-btn-group {
+    display: none !important;
+}
+
+.vocab-focus-mode .vocab-input-section,
+.vocab-focus-mode .vocab-divider-top {
+    display: none !important;
+}
+
+/* --- 21. AI Action Row --- */
+.vocab-ai-action-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+/* --- 22. Calendar Modal --- */
+.vocab-calendar-modal {
+    --zen-cyan: #92f7e6;
+    --zen-cyan-rgb: 146, 247, 230;
+    --zen-pink: #ff6b9c;
+    --zen-pink-rgb: 255, 107, 156;
+    --zen-blue: #70a0ff;
+    --zen-blue-rgb: 112, 160, 255;
+    --zen-green: #5b8e39;
+    --zen-green-rgb: 91, 142, 57;
+    --zen-idle: #7c7c92;
+    --zen-idle-rgb: 124, 124, 146;
+    --zen-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --zen-radius-xs: 6px;
+}
+
+.vocab-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(var(--zen-cyan-rgb), 0.1);
+}
+
+.vocab-modal-title {
+    font-size: 16px;
+    font-weight: 650;
+    color: var(--zen-pink);
+}
+
+.vocab-calendar-body {
+    min-height: 200px;
+}
+
+.vocab-filter-select {
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(var(--zen-cyan-rgb), 0.15);
+    background: transparent;
+    color: rgba(var(--zen-idle-rgb), 0.82);
+    font-size: 11.5px;
+    font-weight: 550;
+    cursor: pointer;
+    transition: all var(--zen-transition);
+}
+
+.vocab-filter-select:hover { border-color: rgba(var(--zen-cyan-rgb), 0.35); }
+.vocab-filter-select:focus { outline: none; border-color: rgba(var(--zen-cyan-rgb), 0.4); }
+
+.vocab-filter-select option {
+    background: var(--background-primary);
+    color: var(--text-normal);
+}
+
+/* Modal date input */
+.modal-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+    border: 1.5px solid rgba(var(--zen-cyan-rgb), 0.2);
+    border-radius: 999px;
+    height: 42px;
+    padding: 0 20px;
+    width: fit-content;
+    margin: 20px auto;
+    transition: all var(--zen-transition);
+    cursor: pointer;
+}
+
+.modal-input-wrapper:hover {
+    border-color: rgba(var(--zen-cyan-rgb), 0.35);
+    background: rgba(var(--zen-cyan-rgb), 0.06);
+}
+
+.modal-input-wrapper:focus-within {
+    border-color: rgba(var(--zen-cyan-rgb), 0.45);
+    box-shadow: 0 0 0 3px rgba(var(--zen-cyan-rgb), 0.08);
+}
+
+.modal-input-wrapper .modal-date-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: rgba(var(--zen-cyan-rgb), 0.85);
+}
+
+.modal-input-wrapper .modal-date-picker {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--text-normal);
+    cursor: pointer;
+    padding: 0 !important;
+    text-align: center;
+}
+
+.vocab-year-overlay {
+    position: absolute;
+    pointer-events: none;
+    color: var(--zen-pink);
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 26px;
+}
+
+/* Year picker & month grid (4×3) */
+.vocab-year-month-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.vocab-month-cell {
+    aspect-ratio: auto;
+    min-height: 56px;
+}
+
+.vocab-year-cell {
+    aspect-ratio: auto;
+    min-height: 48px;
+    font-size: 15px;
+}
+
+/* Week list (scrollable rows) */
+.vocab-week-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+.vocab-week-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--zen-radius-xs);
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all var(--zen-transition);
+}
+
+.vocab-week-row:hover {
+    background: rgba(var(--zen-cyan-rgb), 0.08);
+    border-color: rgba(var(--zen-cyan-rgb), 0.2);
+    transform: translateX(2px);
+}
+
+.vocab-week-row.level-1 { background: rgba(var(--zen-cyan-rgb), 0.13); }
+.vocab-week-row.level-2 { background: rgba(var(--zen-cyan-rgb), 0.3); }
+.vocab-week-row.level-3 { background: rgba(var(--zen-cyan-rgb), 0.5); }
+.vocab-week-row.level-4 { background: rgba(var(--zen-cyan-rgb), 0.7); color: #fff; }
+
+.vocab-week-row.level-3 .vocab-week-num-text,
+.vocab-week-row.level-4 .vocab-week-num-text,
+.vocab-week-row.level-3 .vocab-week-range-text,
+.vocab-week-row.level-4 .vocab-week-range-text,
+.vocab-week-row.level-3 .vocab-week-count-text,
+.vocab-week-row.level-4 .vocab-week-count-text {
+    color: #fff;
+}
+
+.vocab-week-row.is-today-week {
+    border: 2px solid var(--zen-pink);
+    background: rgba(var(--zen-pink-rgb), 0.06);
+}
+
+.vocab-week-num {
+    flex-shrink: 0;
+    width: 40px;
+}
+
+.vocab-week-num-text {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--zen-pink);
+}
+
+.vocab-week-range {
+    flex: 1;
+}
+
+.vocab-week-range-text {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.vocab-week-count {
+    flex-shrink: 0;
+    width: 28px;
+    text-align: right;
+}
+
+.vocab-week-count-text {
+    font-weight: 650;
+    font-size: 13px;
+    color: var(--zen-cyan);
+}
+
+/* --- 23. Calendar Grid --- */
+.vocab-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.vocab-calendar-title-inline {
+    font-size: 16px;
+    font-weight: 650;
+    color: var(--zen-pink);
+}
+
+.vocab-calendar-grid-wrapper { width: 100%; }
+
+.vocab-calendar-week-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(var(--zen-idle-rgb), 0.7);
+    font-weight: 550;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.vocab-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.vocab-calendar-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--zen-radius-xs);
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text-normal);
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+    transition: all 0.15s ease;
+    border: 1.5px solid transparent;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.vocab-calendar-cell.is-empty {
+    background-color: transparent !important;
+    cursor: default;
+}
+
+.vocab-calendar-cell:not(.is-empty):hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(var(--zen-cyan-rgb), 0.35);
+    background: rgba(var(--zen-cyan-rgb), 0.08);
+}
+
+/* Heatmap levels */
+.vocab-calendar-cell.level-0::before { content: none; }
+.vocab-calendar-cell.level-1 { background: rgba(var(--zen-cyan-rgb), 0.13); }
+.vocab-calendar-cell.level-2 { background: rgba(var(--zen-cyan-rgb), 0.3); }
+.vocab-calendar-cell.level-3 { background: rgba(var(--zen-cyan-rgb), 0.55); color: #fff; font-weight: 600; }
+.vocab-calendar-cell.level-4 { background: rgba(var(--zen-cyan-rgb), 0.8); color: #fff; font-weight: 700; }
+
+.vocab-calendar-cell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+    z-index: 0;
+}
+
+.vocab-calendar-date-text { position: relative; z-index: 1; font-weight: 500; }
+
+.vocab-calendar-cell.is-today {
+    border: 2px solid var(--zen-pink);
+    font-weight: 700;
+    background: rgba(var(--zen-pink-rgb), 0.06);
+}
+
+.vocab-calendar-cell.is-selected {
+    border: 2px solid var(--zen-pink);
+    background: rgba(var(--zen-pink-rgb), 0.12);
+    font-weight: 700;
+}
+
+.vocab-calendar-cell.is-in-week {
+    box-shadow: inset 0 0 0 2px rgba(var(--zen-cyan-rgb), 0.5);
+    background: rgba(var(--zen-cyan-rgb), 0.1);
+}
+
+.vocab-calendar-dots {
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.vocab-calendar-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.6;
+}
+
+.vocab-calendar-cell.level-3 .vocab-calendar-dot,
+.vocab-calendar-cell.level-4 .vocab-calendar-dot {
+    background-color: #ffffff;
+    opacity: 0.9;
+}
+
+/* --- 24. Settings Headers --- */
+.vocab-settings-header {
+    margin-top: 28px;
+    padding-bottom: 8px;
+    border: none;
+    color: var(--text-normal);
+    font-size: 14px;
+    font-weight: 650;
+}
+
+/* --- 25. Ribbon Icon --- */
+.side-dock-ribbon-action[aria-label="忘·言 AI | ZenVocab AI"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.side-dock-ribbon-action[aria-label="忘·言 AI | ZenVocab AI"] svg {
+    color: #ff6b9c !important;
+    width: 24px !important;
+    height: 24px !important;
+    transition: transform 0.2s ease-in-out !important;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* --- 26. Date Picker Hacks --- */
+.vocab-date-picker::-webkit-calendar-picker-indicator,
+.vocab-filter-input::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+    -webkit-appearance: none !important;
+    background: transparent !important;
+}
+
+.vocab-input-hint {
+    font-size: 11px;
+    color: rgba(var(--zen-idle-rgb), 0.7);
+    font-style: italic;
+    margin-top: -8px;
+    margin-bottom: 2px;
+    padding-left: 4px;
+}
+
+/* --- 27. Donation Section (Settings Tab) --- */
+.vocab-donate-section {
+    text-align: center;
+    padding: 20px 16px 16px;
+    margin-top: 8px;
+    border: 1.5px dashed rgba(var(--zen-cyan-rgb), 0.18);
+    border-radius: var(--zen-radius);
+    background: rgba(var(--zen-cyan-rgb), 0.03);
+}
+
+.vocab-donate-text {
+    font-size: 14px;
+    color: var(--text-normal);
+    margin-bottom: 16px;
+    font-weight: 550;
+}
+
+.vocab-donate-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.vocab-donate-btn {
+    min-width: 120px;
+}
+
+.vocab-donate-btn:hover {
+    background: rgba(var(--zen-pink-rgb), 0.12) !important;
+    color: var(--zen-pink) !important;
+    border-color: rgba(var(--zen-pink-rgb), 0.25) !important;
+}
+
+.vocab-donate-thanks {
+    font-size: 11.5px;
+    color: rgba(var(--zen-idle-rgb), 0.7);
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* --- 28. QR Code Donation Modal --- */
+.vocab-qrcode-modal {
+    text-align: center;
+    padding: 24px 20px;
+}
+
+.vocab-qrcode-title {
+    font-size: 16px;
+    font-weight: 650;
+    color: var(--zen-pink);
+    margin-bottom: 20px;
+}
+
+.vocab-qrcode-img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: var(--zen-radius);
+    margin-bottom: 16px;
+    border: 1px solid rgba(var(--zen-cyan-rgb), 0.12);
+}
+
+.vocab-qrcode-img {
+    width: 260px;
+    height: 260px;
+    object-fit: contain;
+    image-rendering: auto;
+}
+
+.vocab-qrcode-error {
+    color: var(--zen-pink);
+    font-size: 13px;
+    padding: 20px;
+}
+
+.vocab-qrcode-hint {
+    font-size: 12px;
+    color: rgba(var(--zen-idle-rgb), 0.7);
+    font-style: italic;
+}
+
+/* --- 29. Responsive --- */
+@media (max-width: 720px) {
+    .vocab-view-container {
+        padding: 14px;
+        gap: 12px;
+    }
+    .vocab-brand-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .vocab-mode-pills {
+        margin-left: 0;
+    }
+    .vocab-top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .vocab-tool-group {
+        justify-content: flex-start;
+    }
+    .vocab-search-inline {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+}
