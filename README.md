@@ -111,9 +111,11 @@ npm run build  # 生产构建
 
 ---
 
-## 🤖 致谢
+## 👤 作者
 
-本项目在 [Claude Code](https://claude.com/claude-code) 辅助下开发完成。Claude Code 是 Anthropic 推出的命令行 AI 编程助手，支持代码生成、重构、调试、文档撰写等全流程软件工程任务。
+杭州，训练算法工程师。业余折腾 iOS 和 Obsidian 插件。英语是刚需。
+
+[GitHub](https://github.com/krisztiantsui) · ☕ [Buy Me a Coffee](https://buymeacoffee.com/krisztiantsui)
 
 ---
 
