@@ -111,14 +111,6 @@ npm run build  # 生产构建
 
 ---
 
-## 👤 作者
-
-杭州，训练算法工程师。业余折腾 iOS 和 Obsidian 插件。英语是刚需。
-
-[GitHub](https://github.com/krisztiantsui) · ☕ [Buy Me a Coffee](https://buymeacoffee.com/krisztiantsui)
-
----
-
 ## 📄 License
 
 MIT © [krisztiantsui](https://github.com/krisztiantsui)
