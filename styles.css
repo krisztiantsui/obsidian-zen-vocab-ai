@@ -132,7 +132,7 @@ body.vocab-theme-frog   { /* frog palette (legacy) */ }
     padding: 5px 14px;
     color: rgba(var(--zen-idle-rgb), 0.82);
     cursor: pointer;
-    font-size: 11.5px;
+    font-size: calc(11.5px * var(--vocab-font-scale, 1));
     font-weight: 550;
     border-radius: 999px;
     transition: all var(--zen-transition);
@@ -161,7 +161,7 @@ body.vocab-theme-frog   { /* frog palette (legacy) */ }
     background: rgba(var(--zen-cyan-rgb), 0.035) !important;
     border: 1.5px solid rgba(var(--zen-cyan-rgb), 0.14) !important;
     color: var(--text-normal);
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     line-height: 1.4 !important;
     outline: none;
     height: 34px !important;
@@ -218,7 +218,7 @@ button.vocab-btn-save {
     justify-content: center !important;
     padding: 7px 18px !important;
     height: auto !important;
-    font-size: 12.5px !important;
+    font-size: calc(12.5px * var(--vocab-font-scale, 1));
     font-weight: 600 !important;
     cursor: pointer !important;
     border-radius: 999px !important;
@@ -319,7 +319,7 @@ button.vocab-btn-save.is-primary-action:hover,
 }
 
 .vocab-list-title {
-    font-size: 14px;
+    font-size: calc(14px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--zen-blue);
     letter-spacing: -0.01em;
@@ -460,12 +460,12 @@ button.vocab-btn-icon svg {
     padding: 0 10px 0 4px !important;
     height: 100% !important;
     color: var(--text-normal);
-    font-size: 11.5px;
+    font-size: calc(11.5px * var(--vocab-font-scale, 1));
 }
 
 .vocab-search-wrapper .vocab-search-input::placeholder {
     color: rgba(var(--zen-idle-rgb), 0.45);
-    font-size: 11px;
+    font-size: calc(11px * var(--vocab-font-scale, 1));
 }
 
 /* --- 15. Context Header --- */
@@ -481,14 +481,14 @@ button.vocab-btn-icon svg {
 .vocab-focus-mode .vocab-context-header { display: none !important; }
 
 .vocab-context-title {
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--zen-blue) !important;
     letter-spacing: -0.01em;
 }
 
 .vocab-context-count {
-    font-size: 11px;
+    font-size: calc(11px * var(--vocab-font-scale, 1));
     font-weight: 550;
     color: rgba(var(--zen-idle-rgb), 0.78);
     background: rgba(var(--zen-cyan-rgb), 0.06);
@@ -533,7 +533,7 @@ button.vocab-btn-icon svg {
     background: rgba(var(--zen-cyan-rgb), 0.03);
     color: rgba(var(--zen-idle-rgb), 0.7);
     text-align: center;
-    font-size: 12px;
+    font-size: calc(12px * var(--vocab-font-scale, 1));
     border: 1.5px dashed rgba(var(--zen-cyan-rgb), 0.14);
     letter-spacing: 0.01em;
     margin: 0;
@@ -575,7 +575,7 @@ button.vocab-btn-icon svg {
 
 /* Word title */
 .vocab-word {
-    font-size: 14px;
+    font-size: calc(14px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--text-normal);
     line-height: 1.35;
@@ -596,7 +596,7 @@ button.vocab-btn-icon svg {
     align-items: center;
     padding: 2px 8px;
     border-radius: 999px;
-    font-size: 10px;
+    font-size: calc(10px * var(--vocab-font-scale, 1));
     font-weight: 600;
     color: var(--zen-pink);
     background: rgba(var(--zen-pink-rgb), 0.12);
@@ -607,14 +607,14 @@ button.vocab-btn-icon svg {
 
 /* Phonetic */
 .vocab-phonetic-front {
-    font-size: 11.5px;
+    font-size: calc(11.5px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-cyan-rgb), 0.85);
     margin-top: 3px;
     overflow-wrap: break-word;
 }
 
 .vocab-etymology-preview {
-    font-size: 11px;
+    font-size: calc(11px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.78);
     margin-top: 4px;
     display: -webkit-box;
@@ -627,7 +627,7 @@ button.vocab-btn-icon svg {
 .vocab-word-only-mode .vocab-etymology-preview { display: none !important; }
 
 .vocab-shortdef-front {
-    font-size: 12.5px;
+    font-size: calc(12.5px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.85);
     margin-top: 6px;
     line-height: 1.5;
@@ -660,7 +660,7 @@ button.vocab-btn-icon svg {
 }
 
 .vocab-date-badge {
-    font-size: 10.5px;
+    font-size: calc(10.5px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.7);
     padding: 2px 0;
     border-radius: 4px;
@@ -673,13 +673,13 @@ button.vocab-btn-icon svg {
     padding-top: 14px;
     border-top: 1px solid rgba(var(--zen-cyan-rgb), 0.1);
     color: var(--text-normal);
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     line-height: 1.7;
 }
 
 .vocab-meaning h1, .vocab-meaning h2, .vocab-meaning h3 {
     margin: 10px 0 6px;
-    font-size: 13.5px;
+    font-size: calc(13.5px * var(--vocab-font-scale, 1));
     color: var(--zen-blue);
     font-weight: 650;
 }
@@ -696,7 +696,7 @@ button.vocab-btn-icon svg {
     background: rgba(var(--zen-cyan-rgb), 0.04);
     border-radius: 0 var(--zen-radius-xs) var(--zen-radius-xs) 0;
     color: rgba(var(--zen-idle-rgb), 0.9);
-    font-size: 12px;
+    font-size: calc(12px * var(--vocab-font-scale, 1));
     line-height: 1.6;
 }
 
@@ -752,7 +752,7 @@ button.vocab-btn-icon svg {
 }
 
 .vocab-modal-title {
-    font-size: 16px;
+    font-size: calc(16px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--zen-pink);
 }
@@ -767,7 +767,7 @@ button.vocab-btn-icon svg {
     border: 1.5px solid rgba(var(--zen-cyan-rgb), 0.15);
     background: transparent;
     color: rgba(var(--zen-idle-rgb), 0.82);
-    font-size: 11.5px;
+    font-size: calc(11.5px * var(--vocab-font-scale, 1));
     font-weight: 550;
     cursor: pointer;
     transition: all var(--zen-transition);
@@ -821,7 +821,7 @@ button.vocab-btn-icon svg {
     outline: none !important;
     background: transparent !important;
     box-shadow: none !important;
-    font-size: 14px;
+    font-size: calc(14px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--text-normal);
     cursor: pointer;
@@ -833,7 +833,7 @@ button.vocab-btn-icon svg {
     position: absolute;
     pointer-events: none;
     color: var(--zen-pink);
-    font-size: 14px;
+    font-size: calc(14px * var(--vocab-font-scale, 1));
     font-weight: 700;
     padding-left: 26px;
 }
@@ -853,7 +853,7 @@ button.vocab-btn-icon svg {
 .vocab-year-cell {
     aspect-ratio: auto;
     min-height: 48px;
-    font-size: 15px;
+    font-size: calc(15px * var(--vocab-font-scale, 1));
 }
 
 /* Week list (scrollable rows) */
@@ -909,7 +909,7 @@ button.vocab-btn-icon svg {
 
 .vocab-week-num-text {
     font-weight: 700;
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     color: var(--zen-pink);
 }
 
@@ -918,7 +918,7 @@ button.vocab-btn-icon svg {
 }
 
 .vocab-week-range-text {
-    font-size: 12px;
+    font-size: calc(12px * var(--vocab-font-scale, 1));
     color: var(--text-muted);
 }
 
@@ -930,7 +930,7 @@ button.vocab-btn-icon svg {
 
 .vocab-week-count-text {
     font-weight: 650;
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     color: var(--zen-cyan);
 }
 
@@ -943,7 +943,7 @@ button.vocab-btn-icon svg {
 }
 
 .vocab-calendar-title-inline {
-    font-size: 16px;
+    font-size: calc(16px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--zen-pink);
 }
@@ -955,7 +955,7 @@ button.vocab-btn-icon svg {
     grid-template-columns: repeat(7, 1fr);
     gap: 6px;
     text-align: center;
-    font-size: 11px;
+    font-size: calc(11px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.7);
     font-weight: 550;
     margin-bottom: 8px;
@@ -976,7 +976,7 @@ button.vocab-btn-icon svg {
     align-items: center;
     justify-content: center;
     border-radius: var(--zen-radius-xs);
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     cursor: pointer;
     color: var(--text-normal);
     background: rgba(var(--zen-cyan-rgb), 0.03);
@@ -1062,7 +1062,7 @@ button.vocab-btn-icon svg {
     padding-bottom: 8px;
     border: none;
     color: var(--text-normal);
-    font-size: 14px;
+    font-size: calc(14px * var(--vocab-font-scale, 1));
     font-weight: 650;
 }
 
@@ -1096,7 +1096,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .vocab-input-hint {
-    font-size: 11px;
+    font-size: calc(11px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.7);
     font-style: italic;
     margin-top: -8px;
@@ -1115,7 +1115,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .vocab-donate-text {
-    font-size: 14px;
+    font-size: calc(14px * var(--vocab-font-scale, 1));
     color: var(--text-normal);
     margin-bottom: 16px;
     font-weight: 550;
@@ -1140,7 +1140,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .vocab-donate-thanks {
-    font-size: 11.5px;
+    font-size: calc(11.5px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.7);
     font-style: italic;
     margin-top: 4px;
@@ -1153,7 +1153,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .vocab-qrcode-title {
-    font-size: 16px;
+    font-size: calc(16px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--zen-pink);
     margin-bottom: 20px;
@@ -1179,12 +1179,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .vocab-qrcode-error {
     color: var(--zen-pink);
-    font-size: 13px;
+    font-size: calc(13px * var(--vocab-font-scale, 1));
     padding: 20px;
 }
 
 .vocab-qrcode-hint {
-    font-size: 12px;
+    font-size: calc(12px * var(--vocab-font-scale, 1));
     color: rgba(var(--zen-idle-rgb), 0.7);
     font-style: italic;
 }

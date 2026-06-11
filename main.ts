@@ -509,7 +509,9 @@ class ZenVocabAIView extends ItemView {
         if (this.isFocusMode) container.addClass('vocab-focus-mode');
         else container.removeClass('vocab-focus-mode');
 
-        container.style.setProperty('--vocab-base-size', `${this.plugin.settings.fontSize}px`);
+        const baseSize = this.plugin.settings.fontSize;
+        container.style.setProperty('--vocab-base-size', `${baseSize}px`);
+        container.style.setProperty('--vocab-font-scale', `${(baseSize / 13).toFixed(4)}`);
 
         // Unified single-page content
         await this.renderReviewContent(container);
