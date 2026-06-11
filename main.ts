@@ -462,7 +462,7 @@ class ZenVocabAIView extends ItemView {
     isAllExpanded = false;
     isWordOnlyMode = false;
     isFocusMode = false;
-    filterType = 'none';
+    filterType = 'week';
     filterDate: string;
     filterMonth: string;
     filterYear: string;

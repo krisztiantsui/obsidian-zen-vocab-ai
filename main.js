@@ -560,7 +560,7 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
     this.isAllExpanded = false;
     this.isWordOnlyMode = false;
     this.isFocusMode = false;
-    this.filterType = "none";
+    this.filterType = "week";
     this.searchQuery = "";
     this.allVocabsForCalendar = [];
     // AI state
