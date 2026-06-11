@@ -32,6 +32,7 @@
     flex-direction: column;
     height: 100%;
     min-height: 0;
+    overflow: hidden;
     padding: 20px 22px 24px;
     gap: 16px;
     box-sizing: border-box;
@@ -57,8 +58,9 @@ body.vocab-theme-frog   { /* frog palette (legacy) */ }
 .vocab-review-content {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 0;
     min-height: 0;
+    overflow: hidden;
 }
 
 /* --- 4. Input Section --- */
@@ -67,6 +69,7 @@ body.vocab-theme-frog   { /* frog palette (legacy) */ }
     flex-direction: column;
     gap: 12px;
     margin-bottom: 4px;
+    flex-shrink: 0;
 }
 
 /* --- 5. Brand Header --- */
@@ -280,6 +283,7 @@ button.vocab-btn-save.is-primary-action:hover,
     height: 1px;
     background: rgba(var(--zen-cyan-rgb), 0.12);
     margin: 4px 0 4px 0;
+    flex-shrink: 0;
 }
 
 /* --- 11. AI Results Section --- */
@@ -315,7 +319,9 @@ button.vocab-btn-save.is-primary-action:hover,
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    gap: 10px;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 32px;
 }
 
 .vocab-list-title {
@@ -328,28 +334,29 @@ button.vocab-btn-save.is-primary-action:hover,
 
 .vocab-tool-group {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     align-items: center;
-    flex: 1;
-    justify-content: flex-end;
-    min-width: 0;
+    flex-shrink: 0;
 }
 
 /* --- 13. Icon Buttons --- */
 button.vocab-btn-icon {
-    display: inline-flex;
+    display: flex;  /* avoid inline-flex issues on mobile WebView */
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     padding: 0;
+    margin: 0;
+    font-size: inherit;
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
-    color: rgba(var(--zen-cyan-rgb), 0.5);
+    color: rgba(var(--zen-cyan-rgb), 0.55);
     cursor: pointer;
     border-radius: var(--zen-radius-xs);
     transition: all var(--zen-transition);
+    flex-shrink: 0;
 }
 
 button.vocab-btn-icon:hover {
@@ -476,6 +483,7 @@ button.vocab-btn-icon svg {
     margin: 0 0 10px 0;
     padding: 0 4px 8px 4px;
     border-bottom: 1px solid rgba(var(--zen-cyan-rgb), 0.1);
+    flex-shrink: 0;
 }
 
 .vocab-focus-mode .vocab-context-header { display: none !important; }
@@ -517,10 +525,8 @@ button.vocab-btn-icon svg {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding-bottom: 40px;
-    padding-top: 2px;
-    padding-inline: 2px;
-    margin-inline: -2px;
+    padding: 2px 2px 40px 2px;
+    margin: 0 -2px;
 }
 
 .vocab-empty {
@@ -1192,23 +1198,35 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* --- 29. Responsive --- */
 @media (max-width: 720px) {
     .vocab-view-container {
-        padding: 14px;
-        gap: 12px;
+        padding: 12px;
+        gap: 10px;
     }
     .vocab-brand-header {
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 8px;
     }
     .vocab-mode-pills {
         margin-left: 0;
     }
     .vocab-top-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
+        flex-direction: row;  /* stay horizontal on mobile */
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 6px;
+    }
+    .vocab-list-title {
+        font-size: calc(12px * var(--vocab-font-scale, 1));
     }
     .vocab-tool-group {
-        justify-content: flex-start;
+        gap: 1px;
+    }
+    button.vocab-btn-icon {
+        width: 28px;
+        height: 28px;
+    }
+    button.vocab-btn-icon svg {
+        width: 14px;
+        height: 14px;
     }
     .vocab-search-inline {
         flex: 1 1 100%;
