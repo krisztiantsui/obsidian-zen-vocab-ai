@@ -31,7 +31,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
     padding: 20px 22px 24px;
     gap: 16px;
@@ -322,6 +323,8 @@ button.vocab-btn-save.is-primary-action:hover,
     gap: 8px;
     flex-shrink: 0;
     min-height: 32px;
+    position: relative;
+    z-index: 1;
 }
 
 .vocab-list-title {
@@ -1208,28 +1211,72 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .vocab-mode-pills {
         margin-left: 0;
     }
-    .vocab-top-bar {
-        flex-direction: row;  /* stay horizontal on mobile */
-        flex-wrap: nowrap;
-        align-items: center;
-        gap: 6px;
-    }
-    .vocab-list-title {
-        font-size: calc(12px * var(--vocab-font-scale, 1));
-    }
-    .vocab-tool-group {
-        gap: 1px;
-    }
-    button.vocab-btn-icon {
-        width: 28px;
-        height: 28px;
-    }
-    button.vocab-btn-icon svg {
-        width: 14px;
-        height: 14px;
-    }
     .vocab-search-inline {
         flex: 1 1 100%;
         max-width: none;
+    }
+}
+
+/* --- 30. Mobile-tight (< 420px, Android panels) --- */
+@media (max-width: 420px) {
+    .vocab-view-container {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+    .vocab-brand-text {
+        font-size: clamp(14px, 2vw, 18px);
+    }
+    .vocab-brand-icon svg {
+        width: 22px !important;
+        height: 22px !important;
+    }
+    .vocab-mode-pill {
+        padding: 4px 10px;
+        font-size: 10.5px;
+    }
+    .vocab-smart-textarea {
+        height: 30px !important;
+        min-height: 30px !important;
+        max-height: 30px !important;
+        font-size: 12px;
+    }
+    .vocab-search-wrapper {
+        height: 30px;
+    }
+    .vocab-search-wrapper .vocab-search-input {
+        font-size: 10.5px;
+    }
+    .vocab-top-bar {
+        flex-shrink: 0;
+        min-height: 28px;
+        overflow: visible;
+    }
+    .vocab-list-title {
+        display: none;
+    }
+    .vocab-tool-group {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 0;
+    }
+    button.vocab-btn-icon {
+        width: 26px;
+        height: 26px;
+    }
+    button.vocab-btn-icon svg {
+        width: 13px;
+        height: 13px;
+    }
+    .vocab-card {
+        padding: 10px 12px;
+    }
+    .vocab-word {
+        font-size: 13px;
+    }
+    .vocab-context-header {
+        padding: 0 2px 6px 2px;
+    }
+    .vocab-context-title {
+        display: none;
     }
 }
