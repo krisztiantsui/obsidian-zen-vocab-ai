@@ -342,46 +342,31 @@ button.vocab-btn-save.is-primary-action:hover,
     flex-shrink: 0;
 }
 
-/* --- 13. Icon Buttons --- */
-button.vocab-btn-icon {
-    display: flex;  /* avoid inline-flex issues on mobile WebView */
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    margin: 0;
-    font-size: inherit;
-    border: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
+/* --- 13. Icon Buttons (extends Obsidian's clickable-icon) --- */
+.vocab-tool-group .clickable-icon {
     color: rgba(var(--zen-cyan-rgb), 0.55);
-    cursor: pointer;
-    border-radius: var(--zen-radius-xs);
-    transition: all var(--zen-transition);
     flex-shrink: 0;
 }
 
-button.vocab-btn-icon:hover {
+.vocab-tool-group .clickable-icon:hover {
     color: var(--zen-cyan);
-    background: rgba(var(--zen-cyan-rgb), 0.08) !important;
-    transform: translateY(-1px);
 }
 
-button.vocab-btn-icon svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.85px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
+.vocab-cal-nav-icon {
+    color: rgba(var(--zen-cyan-rgb), 0.55);
+}
+
+.vocab-cal-nav-icon:hover {
+    color: var(--zen-cyan);
+}
+
+/* Card icon buttons: invisible until hover */
+.vocab-btn-group .clickable-icon {
+    flex-shrink: 0;
 }
 
 .vocab-btn-delete:hover {
     color: var(--zen-pink) !important;
-    background: rgba(var(--zen-pink-rgb), 0.08) !important;
 }
 
 .vocab-btn-mark.is-marked {
@@ -1259,13 +1244,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         justify-content: flex-end;
         gap: 0;
     }
-    button.vocab-btn-icon {
-        width: 26px;
-        height: 26px;
-    }
-    button.vocab-btn-icon svg {
-        width: 13px;
-        height: 13px;
+    .vocab-tool-group .clickable-icon {
+        --icon-size: var(--icon-s, 16px);
     }
     .vocab-card {
         padding: 10px 12px;

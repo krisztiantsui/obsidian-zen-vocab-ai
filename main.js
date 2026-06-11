@@ -355,20 +355,20 @@ var VocabCalendarModal = class extends import_obsidian.Modal {
     const todayMonth = window.moment().format("YYYY-MM");
     const body = this.bodyEl();
     const calHeader = body.createDiv({ cls: "vocab-calendar-header" });
-    const prevBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+    const prevBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
     (0, import_obsidian.setIcon)(prevBtn, "chevron-left");
     prevBtn.onclick = () => {
       this.modalYear--;
       this.renderMonthGrid();
     };
     calHeader.createSpan({ text: `${currentYear} \u5E74`, cls: "vocab-calendar-title-inline" });
-    const nextBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+    const nextBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
     (0, import_obsidian.setIcon)(nextBtn, "chevron-right");
     nextBtn.onclick = () => {
       this.modalYear++;
       this.renderMonthGrid();
     };
-    const backBtn = calHeader.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u8FD4\u56DE\u5E74\u4EFD" } });
+    const backBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon", attr: { "aria-label": "\u8FD4\u56DE\u5E74\u4EFD" } });
     (0, import_obsidian.setIcon)(backBtn, "arrow-up");
     backBtn.onclick = () => {
       this.modalMode = "year";
@@ -403,20 +403,20 @@ var VocabCalendarModal = class extends import_obsidian.Modal {
     const todayStr = window.moment().format("YYYY-MM-DD");
     const body = this.bodyEl();
     const calHeader = body.createDiv({ cls: "vocab-calendar-header" });
-    const prevBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+    const prevBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
     (0, import_obsidian.setIcon)(prevBtn, "chevron-left");
     prevBtn.onclick = () => {
       this.modalYear--;
       this.renderWeekList();
     };
     calHeader.createSpan({ text: `${currentYear} \u5E74 \xB7 \u5468`, cls: "vocab-calendar-title-inline" });
-    const nextBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+    const nextBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
     (0, import_obsidian.setIcon)(nextBtn, "chevron-right");
     nextBtn.onclick = () => {
       this.modalYear++;
       this.renderWeekList();
     };
-    const backBtn = calHeader.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u8FD4\u56DE\u5E74\u4EFD" } });
+    const backBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon", attr: { "aria-label": "\u8FD4\u56DE\u5E74\u4EFD" } });
     (0, import_obsidian.setIcon)(backBtn, "arrow-up");
     backBtn.onclick = () => {
       this.modalMode = "year";
@@ -476,7 +476,7 @@ var VocabCalendarModal = class extends import_obsidian.Modal {
     else
       refDate = window.moment(this.view.filterDate || void 0);
     const calendarHeader = container.createDiv({ cls: "vocab-calendar-header" });
-    const prevBtn = calendarHeader.createEl("button", { cls: "vocab-btn-icon" });
+    const prevBtn = calendarHeader.createEl("button", { cls: "clickable-icon vocab-icon" });
     (0, import_obsidian.setIcon)(prevBtn, "chevron-left");
     prevBtn.onclick = () => {
       refDate.subtract(1, "month");
@@ -492,7 +492,7 @@ var VocabCalendarModal = class extends import_obsidian.Modal {
     };
     const title = isWeekMode ? `${refDate.format("YYYY \u5E74 MM \u6708")} \xB7 \u7B2C${refDate.isoWeek()}\u5468` : refDate.format("YYYY \u5E74 MM \u6708");
     calendarHeader.createSpan({ text: title, cls: "vocab-calendar-title-inline" });
-    const nextBtn = calendarHeader.createEl("button", { cls: "vocab-btn-icon" });
+    const nextBtn = calendarHeader.createEl("button", { cls: "clickable-icon vocab-icon" });
     (0, import_obsidian.setIcon)(nextBtn, "chevron-right");
     nextBtn.onclick = () => {
       refDate.add(1, "month");
@@ -751,19 +751,19 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
     const headerEl = reviewContent.createDiv({ cls: "vocab-top-bar" });
     headerEl.createEl("span", { text: "\u6E29\u6545\u77E5\u65B0", cls: "vocab-list-title" });
     const toolGroup = headerEl.createDiv({ cls: "vocab-tool-group" });
-    const focusBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u6C89\u6D78\u6A21\u5F0F | Focus" } });
+    const focusBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "\u6C89\u6D78\u6A21\u5F0F | Focus" } });
     (0, import_obsidian.setIcon)(focusBtn, this.isFocusMode ? "minimize" : "maximize");
     focusBtn.onclick = () => {
       this.isFocusMode = !this.isFocusMode;
       this.render();
     };
-    const eyeBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u7EAF\u4EAB\u6A21\u5F0F | Word-Only" } });
+    const eyeBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "\u7EAF\u4EAB\u6A21\u5F0F | Word-Only" } });
     (0, import_obsidian.setIcon)(eyeBtn, this.isWordOnlyMode ? "eye-off" : "eye");
     eyeBtn.onclick = () => {
       this.isWordOnlyMode = !this.isWordOnlyMode;
       this.render();
     };
-    const expandBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u5C55\u5377/\u6536\u62E2" } });
+    const expandBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "\u5C55\u5377/\u6536\u62E2" } });
     (0, import_obsidian.setIcon)(expandBtn, "chevrons-up-down");
     expandBtn.onclick = () => {
       this.isAllExpanded = !this.isAllExpanded;
@@ -774,14 +774,14 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
           m.classList.add("is-hidden");
       });
     };
-    const calendarBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u65F6\u7A7A\u7F57\u76D8 | Archive Panel" } });
+    const calendarBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "\u65F6\u7A7A\u7F57\u76D8 | Archive Panel" } });
     (0, import_obsidian.setIcon)(calendarBtn, "calendar-days");
     if (this.filterType !== "none")
       calendarBtn.style.color = "var(--vocab-accent-color, magenta)";
     calendarBtn.onclick = () => {
       new VocabCalendarModal(this.plugin.app, this).open();
     };
-    const refreshBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "\u62C2\u5C18" } });
+    const refreshBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "\u62C2\u5C18" } });
     (0, import_obsidian.setIcon)(refreshBtn, "refresh-cw");
     refreshBtn.onclick = async () => {
       this.searchQuery = "";
@@ -935,7 +935,7 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
       if (item.date !== "\u65E9\u671F\u8BB0\u5F55")
         badgeGroup.createDiv({ text: item.date, cls: "vocab-date-badge" });
       const btnGroup = actionArea.createDiv({ cls: "vocab-btn-group" });
-      const speakBtn = btnGroup.createEl("button", { cls: "vocab-btn-icon vocab-btn-speak", attr: { "aria-label": "\u8046\u542C\u53D1\u97F3" } });
+      const speakBtn = btnGroup.createEl("button", { cls: "clickable-icon vocab-icon vocab-btn-speak", attr: { "aria-label": "\u8046\u542C\u53D1\u97F3" } });
       (0, import_obsidian.setIcon)(speakBtn, "volume-2");
       speakBtn.onclick = (e) => {
         e.stopPropagation();
@@ -955,7 +955,7 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
           speakBtn.style.color = "";
         }, 200);
       };
-      const markBtn = btnGroup.createEl("button", { cls: "vocab-btn-icon vocab-btn-mark", attr: { "aria-label": item.isMarked ? "\u53D6\u6D88\u6807\u8BB0" : "\u6807\u8BB0\u91CD\u70B9" } });
+      const markBtn = btnGroup.createEl("button", { cls: "clickable-icon vocab-icon vocab-btn-mark", attr: { "aria-label": item.isMarked ? "\u53D6\u6D88\u6807\u8BB0" : "\u6807\u8BB0\u91CD\u70B9" } });
       (0, import_obsidian.setIcon)(markBtn, "star");
       if (item.isMarked)
         markBtn.addClass("is-marked");
@@ -975,7 +975,7 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
           }
         }
       };
-      const deleteBtn = btnGroup.createEl("button", { cls: "vocab-btn-icon vocab-btn-delete", attr: { "aria-label": this.currentMode === "sentence" ? "\u5220\u9664\u53E5\u5B50" : "\u65A9\u8BCD" } });
+      const deleteBtn = btnGroup.createEl("button", { cls: "clickable-icon vocab-icon vocab-btn-delete", attr: { "aria-label": this.currentMode === "sentence" ? "\u5220\u9664\u53E5\u5B50" : "\u65A9\u8BCD" } });
       (0, import_obsidian.setIcon)(deleteBtn, "trash-2");
       deleteBtn.onclick = async (e) => {
         e.stopPropagation();

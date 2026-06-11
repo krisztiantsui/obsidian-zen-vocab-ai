@@ -245,16 +245,16 @@ class VocabCalendarModal extends Modal {
 
         // Navigation header
         const calHeader = body.createDiv({ cls: "vocab-calendar-header" });
-        const prevBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+        const prevBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
         setIcon(prevBtn, "chevron-left");
         prevBtn.onclick = () => { this.modalYear--; this.renderMonthGrid(); };
         calHeader.createSpan({ text: `${currentYear} 年`, cls: "vocab-calendar-title-inline" });
-        const nextBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+        const nextBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
         setIcon(nextBtn, "chevron-right");
         nextBtn.onclick = () => { this.modalYear++; this.renderMonthGrid(); };
 
         // Back to year picker
-        const backBtn = calHeader.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "返回年份" } });
+        const backBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon", attr: { "aria-label": "返回年份" } });
         setIcon(backBtn, "arrow-up");
         backBtn.onclick = () => { this.modalMode = 'year'; this.renderContent(); };
 
@@ -294,16 +294,16 @@ class VocabCalendarModal extends Modal {
 
         // Navigation header
         const calHeader = body.createDiv({ cls: "vocab-calendar-header" });
-        const prevBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+        const prevBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
         setIcon(prevBtn, "chevron-left");
         prevBtn.onclick = () => { this.modalYear--; this.renderWeekList(); };
         calHeader.createSpan({ text: `${currentYear} 年 · 周`, cls: "vocab-calendar-title-inline" });
-        const nextBtn = calHeader.createEl("button", { cls: "vocab-btn-icon" });
+        const nextBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon" });
         setIcon(nextBtn, "chevron-right");
         nextBtn.onclick = () => { this.modalYear++; this.renderWeekList(); };
 
         // Back to year picker
-        const backBtn = calHeader.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "返回年份" } });
+        const backBtn = calHeader.createEl("button", { cls: "clickable-icon vocab-cal-nav-icon", attr: { "aria-label": "返回年份" } });
         setIcon(backBtn, "arrow-up");
         backBtn.onclick = () => { this.modalMode = 'year'; this.renderContent(); };
 
@@ -375,7 +375,7 @@ class VocabCalendarModal extends Modal {
         else refDate = (window as any).moment(this.view.filterDate || undefined);
 
         const calendarHeader = container.createDiv({ cls: "vocab-calendar-header" });
-        const prevBtn = calendarHeader.createEl("button", { cls: "vocab-btn-icon" });
+        const prevBtn = calendarHeader.createEl("button", { cls: "clickable-icon vocab-icon" });
         setIcon(prevBtn, "chevron-left");
         prevBtn.onclick = () => {
             refDate.subtract(1, 'month');
@@ -392,7 +392,7 @@ class VocabCalendarModal extends Modal {
             : refDate.format('YYYY 年 MM 月');
         calendarHeader.createSpan({ text: title, cls: "vocab-calendar-title-inline" });
 
-        const nextBtn = calendarHeader.createEl("button", { cls: "vocab-btn-icon" });
+        const nextBtn = calendarHeader.createEl("button", { cls: "clickable-icon vocab-icon" });
         setIcon(nextBtn, "chevron-right");
         nextBtn.onclick = () => {
             refDate.add(1, 'month');
@@ -695,15 +695,15 @@ class ZenVocabAIView extends ItemView {
         headerEl.createEl("span", { text: "温故知新", cls: "vocab-list-title" });
         const toolGroup = headerEl.createDiv({ cls: "vocab-tool-group" });
 
-        const focusBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "沉浸模式 | Focus" } });
+        const focusBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "沉浸模式 | Focus" } });
         setIcon(focusBtn, this.isFocusMode ? "minimize" : "maximize");
         focusBtn.onclick = () => { this.isFocusMode = !this.isFocusMode; this.render(); };
 
-        const eyeBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "纯享模式 | Word-Only" } });
+        const eyeBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "纯享模式 | Word-Only" } });
         setIcon(eyeBtn, this.isWordOnlyMode ? "eye-off" : "eye");
         eyeBtn.onclick = () => { this.isWordOnlyMode = !this.isWordOnlyMode; this.render(); };
 
-        const expandBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "展卷/收拢" } });
+        const expandBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "展卷/收拢" } });
         setIcon(expandBtn, "chevrons-up-down");
         expandBtn.onclick = () => {
             this.isAllExpanded = !this.isAllExpanded;
@@ -713,12 +713,12 @@ class ZenVocabAIView extends ItemView {
             });
         };
 
-        const calendarBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "时空罗盘 | Archive Panel" } });
+        const calendarBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "时空罗盘 | Archive Panel" } });
         setIcon(calendarBtn, "calendar-days");
         if (this.filterType !== 'none') calendarBtn.style.color = "var(--vocab-accent-color, magenta)";
         calendarBtn.onclick = () => { new VocabCalendarModal(this.plugin.app, this).open(); };
 
-        const refreshBtn = toolGroup.createEl("button", { cls: "vocab-btn-icon", attr: { "aria-label": "拂尘" } });
+        const refreshBtn = toolGroup.createEl("button", { cls: "clickable-icon vocab-tool-icon", attr: { "aria-label": "拂尘" } });
         setIcon(refreshBtn, "refresh-cw");
         refreshBtn.onclick = async () => {
             this.searchQuery = "";
@@ -876,7 +876,7 @@ class ZenVocabAIView extends ItemView {
             const btnGroup = actionArea.createDiv({ cls: "vocab-btn-group" });
 
             // TTS button
-            const speakBtn = btnGroup.createEl("button", { cls: "vocab-btn-icon vocab-btn-speak", attr: { "aria-label": "聆听发音" } });
+            const speakBtn = btnGroup.createEl("button", { cls: "clickable-icon vocab-icon vocab-btn-speak", attr: { "aria-label": "聆听发音" } });
             setIcon(speakBtn, "volume-2");
             speakBtn.onclick = (e: Event) => {
                 e.stopPropagation();
@@ -894,7 +894,7 @@ class ZenVocabAIView extends ItemView {
             };
 
             // Mark button
-            const markBtn = btnGroup.createEl("button", { cls: "vocab-btn-icon vocab-btn-mark", attr: { "aria-label": item.isMarked ? "取消标记" : "标记重点" } });
+            const markBtn = btnGroup.createEl("button", { cls: "clickable-icon vocab-icon vocab-btn-mark", attr: { "aria-label": item.isMarked ? "取消标记" : "标记重点" } });
             setIcon(markBtn, "star");
             if (item.isMarked) markBtn.addClass("is-marked");
             markBtn.onclick = async (e: Event) => {
@@ -915,7 +915,7 @@ class ZenVocabAIView extends ItemView {
             };
 
             // Delete button
-            const deleteBtn = btnGroup.createEl("button", { cls: "vocab-btn-icon vocab-btn-delete", attr: { "aria-label": this.currentMode === 'sentence' ? "删除句子" : "斩词" } });
+            const deleteBtn = btnGroup.createEl("button", { cls: "clickable-icon vocab-icon vocab-btn-delete", attr: { "aria-label": this.currentMode === 'sentence' ? "删除句子" : "斩词" } });
             setIcon(deleteBtn, "trash-2");
             deleteBtn.onclick = async (e: Event) => {
                 e.stopPropagation();
