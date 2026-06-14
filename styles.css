@@ -293,15 +293,15 @@ button.vocab-btn-save.is-primary-action:hover,
     border-radius: var(--zen-radius);
     padding: 16px 18px;
     margin-top: 4px;
-    background: rgba(var(--zen-cyan-rgb), 0.12);
+    background: rgba(var(--zen-cyan-rgb), 0.04);
     max-height: 55vh;
     overflow-y: auto;
 }
 
 .vocab-ai-results-section .vocab-card {
     border-radius: var(--zen-radius-sm);
-    background: rgba(var(--zen-cyan-rgb), 0.15);
-    border: 1px solid rgba(var(--zen-cyan-rgb), 0.2);
+    background: rgba(var(--zen-cyan-rgb), 0.06);
+    border: 1px solid rgba(var(--zen-cyan-rgb), 0.08);
     box-shadow: none !important;
     transform: none !important;
     margin-bottom: 10px;
@@ -311,8 +311,8 @@ button.vocab-btn-save.is-primary-action:hover,
 .vocab-ai-results-section .vocab-card:last-child { margin-bottom: 0; }
 
 .vocab-ai-results-section .vocab-card:hover {
-    background: rgba(var(--zen-cyan-rgb), 0.05) !important;
-    border-color: rgba(var(--zen-cyan-rgb), 0.08);
+    background: rgba(var(--zen-cyan-rgb), 0.02) !important;
+    border-color: rgba(var(--zen-cyan-rgb), 0.04);
     transform: translateY(-1px) !important;
     box-shadow: var(--zen-shadow) !important;
 }
