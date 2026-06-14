@@ -305,7 +305,15 @@ button.vocab-btn-save.is-primary-action:hover,
     box-shadow: none !important;
     transform: none !important;
     margin-bottom: 10px;
+    cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+/* Let clicks pass through rendered markdown children to the card */
+.vocab-ai-results-section .vocab-card a,
+.vocab-ai-results-section .vocab-card .internal-link,
+.vocab-ai-results-section .vocab-card .external-link {
+    pointer-events: none;
 }
 
 .vocab-ai-results-section .vocab-card:last-child { margin-bottom: 0; }

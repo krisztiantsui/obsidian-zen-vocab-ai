@@ -999,15 +999,18 @@ class ZenVocabAIView extends ItemView {
             new Notice(`"${word}" 已存入${this.currentMode === 'sentence' ? '句库' : '词库'}`);
         };
 
-    // Click card → remove card, auto-refresh
-    card.onclick = () => {
+    // Click card body → remove card, auto-refresh word list
+    // (skip if clicking action buttons)
+    card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('.vocab-ai-action-row')) return;
         card.remove();
-        // Hide results section if empty
         if (this.aiResultsContainer && !this.aiResultsContainer.querySelector('.vocab-card')) {
             this.aiResultsContainer.style.display = "none";
             this.aiResults = [];
         }
-    };
+        this.render();
+    }, true);
 
     card.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }

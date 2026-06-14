@@ -1056,13 +1056,17 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
       bankBtn.style.color = "var(--vocab-accent-color, magenta)";
       new import_obsidian.Notice(`"${word}" \u5DF2\u5B58\u5165${this.currentMode === "sentence" ? "\u53E5\u5E93" : "\u8BCD\u5E93"}`);
     };
-    card.onclick = () => {
+    card.addEventListener("click", (e) => {
+      const target = e.target;
+      if (target.closest(".vocab-ai-action-row"))
+        return;
       card.remove();
       if (this.aiResultsContainer && !this.aiResultsContainer.querySelector(".vocab-card")) {
         this.aiResultsContainer.style.display = "none";
         this.aiResults = [];
       }
-    };
+      this.render();
+    }, true);
     card.scrollIntoView({ behavior: "smooth", block: "end" });
   }
   // Robust word extraction + conversational-prefix stripping
