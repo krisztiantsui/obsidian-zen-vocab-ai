@@ -1057,12 +1057,10 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
       new import_obsidian.Notice(`"${word}" \u5DF2\u5B58\u5165${this.currentMode === "sentence" ? "\u53E5\u5E93" : "\u8BCD\u5E93"}`);
     };
     card.onclick = () => {
-      cardBody.classList.toggle("is-hidden");
-      card.classList.toggle("is-collapsed");
-      if (cardBody.classList.contains("is-hidden")) {
-        actionArea.style.marginTop = "0";
-      } else {
-        actionArea.style.marginTop = "12px";
+      card.remove();
+      if (this.aiResultsContainer && !this.aiResultsContainer.querySelector(".vocab-card")) {
+        this.aiResultsContainer.style.display = "none";
+        this.aiResults = [];
       }
     };
     card.scrollIntoView({ behavior: "smooth", block: "end" });

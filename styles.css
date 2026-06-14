@@ -300,30 +300,21 @@ button.vocab-btn-save.is-primary-action:hover,
 
 .vocab-ai-results-section .vocab-card {
     border-radius: var(--zen-radius-sm);
-    background: rgba(var(--zen-cyan-rgb), 0.06);
+    background: rgba(var(--zen-cyan-rgb), 0.08);
     border: 1px solid rgba(var(--zen-cyan-rgb), 0.12);
     box-shadow: none !important;
     transform: none !important;
     margin-bottom: 10px;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .vocab-ai-results-section .vocab-card:last-child { margin-bottom: 0; }
 
 .vocab-ai-results-section .vocab-card:hover {
-    background: rgba(var(--zen-cyan-rgb), 0.16) !important;
-    border-color: rgba(var(--zen-cyan-rgb), 0.28);
+    background: rgba(var(--zen-cyan-rgb), 0.03) !important;
+    border-color: rgba(var(--zen-cyan-rgb), 0.06);
     transform: translateY(-1px) !important;
     box-shadow: var(--zen-shadow) !important;
-}
-
-/* Collapsed AI card — just a thin bar */
-.vocab-ai-card.is-collapsed {
-    padding: 8px 18px;
-    cursor: pointer;
-}
-
-.vocab-ai-card .vocab-ai-action-row {
-    margin-top: 12px;
 }
 
 /* --- 12. Top Bar & Toolbar --- */
@@ -695,8 +686,6 @@ button.vocab-btn-save.is-primary-action:hover,
 
 .vocab-meaning.is-hidden { display: none !important; }
 
-/* AI card body collapse */
-.vocab-ai-card-body.is-hidden { display: none !important; }
 
 .vocab-meaning blockquote {
     margin: 10px 0;

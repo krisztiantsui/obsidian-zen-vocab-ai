@@ -999,19 +999,18 @@ class ZenVocabAIView extends ItemView {
             new Notice(`"${word}" 已存入${this.currentMode === 'sentence' ? '句库' : '词库'}`);
         };
 
-        // Click card to toggle collapse (keep action row visible)
-        card.onclick = () => {
-            cardBody.classList.toggle('is-hidden');
-            card.classList.toggle('is-collapsed');
-            if (cardBody.classList.contains('is-hidden')) {
-                actionArea.style.marginTop = '0';
-            } else {
-                actionArea.style.marginTop = '12px';
-            }
-        };
+    // Click card → remove card, auto-refresh
+    card.onclick = () => {
+        card.remove();
+        // Hide results section if empty
+        if (this.aiResultsContainer && !this.aiResultsContainer.querySelector('.vocab-card')) {
+            this.aiResultsContainer.style.display = "none";
+            this.aiResults = [];
+        }
+    };
 
-        card.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
+    card.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
 
     // Robust word extraction + conversational-prefix stripping
     extractWordAndCleanCard(cardMd: string): { word: string; cleanMd: string } {
