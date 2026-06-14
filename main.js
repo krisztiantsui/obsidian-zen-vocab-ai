@@ -687,7 +687,7 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
       text: this.currentMode === "sentence" ? "Translate" : "Parse",
       cls: "vocab-btn-save vocab-unified-ai-btn"
     });
-    aiBtn.onclick = async () => {
+    const triggerAi = async () => {
       const text = smartTextEl.value.trim();
       if (!text || this.isAiBusy)
         return;
@@ -743,6 +743,13 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
         }
       }
     };
+    aiBtn.onclick = triggerAi;
+    smartTextEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        triggerAi();
+      }
+    });
     this.aiResultsContainer = inputArea.createDiv({ cls: "vocab-ai-results-section" });
     this.aiResultsContainer.style.display = "none";
     reviewContent.createEl("hr", { cls: "vocab-divider vocab-divider-top" });
@@ -1023,23 +1030,40 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
     const empty = this.aiResultsContainer.querySelector(".vocab-empty");
     if (empty)
       empty.remove();
-    const card = this.aiResultsContainer.createDiv({ cls: "vocab-card" });
-    import_obsidian.MarkdownRenderer.renderMarkdown(cardMd, card, "", this.plugin);
+    const card = this.aiResultsContainer.createDiv({ cls: "vocab-card vocab-ai-card" });
+    const cardBody = card.createDiv({ cls: "vocab-ai-card-body" });
+    import_obsidian.MarkdownRenderer.renderMarkdown(cardMd, cardBody, "", this.plugin);
     const actionArea = card.createDiv({ cls: "vocab-ai-action-row" });
     const insBtn = actionArea.createEl("button", { cls: "vocab-btn-save", text: "\u{1F4E5} \u5B58\u5165\u7B14\u8BB0" });
     insBtn.style.cssText = "flex: 1; min-width: 80px;";
-    insBtn.onclick = () => this.plugin.insertAtCursor(cardMd);
+    insBtn.onclick = (e) => {
+      e.stopPropagation();
+      this.plugin.insertAtCursor(cardMd);
+    };
     const cpBtn = actionArea.createEl("button", { cls: "vocab-btn-save", text: "\u{1F4CB} \u590D\u5236" });
     cpBtn.style.cssText = "flex: 1; min-width: 80px;";
-    cpBtn.onclick = () => this.copyToClipboard(cardMd);
+    cpBtn.onclick = (e) => {
+      e.stopPropagation();
+      this.copyToClipboard(cardMd);
+    };
     const bankBtn = actionArea.createEl("button", { cls: "vocab-btn-save", text: "\u{1F4DA} \u5B58\u5165\u8BCD\u5E93" });
     bankBtn.style.cssText = "flex: 1; min-width: 80px;";
-    bankBtn.onclick = async () => {
+    bankBtn.onclick = async (e) => {
+      e.stopPropagation();
       const { word, cleanMd } = this.extractWordAndCleanCard(cardMd);
       await this.plugin.appendWord(word, cleanMd, this.currentMode);
       bankBtn.innerText = "\u2705 \u5DF2\u5B58\u5165";
       bankBtn.style.color = "var(--vocab-accent-color, magenta)";
       new import_obsidian.Notice(`"${word}" \u5DF2\u5B58\u5165${this.currentMode === "sentence" ? "\u53E5\u5E93" : "\u8BCD\u5E93"}`);
+    };
+    card.onclick = () => {
+      cardBody.classList.toggle("is-hidden");
+      card.classList.toggle("is-collapsed");
+      if (cardBody.classList.contains("is-hidden")) {
+        actionArea.style.marginTop = "0";
+      } else {
+        actionArea.style.marginTop = "12px";
+      }
     };
     card.scrollIntoView({ behavior: "smooth", block: "end" });
   }

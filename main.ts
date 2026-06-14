@@ -624,8 +624,8 @@ class ZenVocabAIView extends ItemView {
             cls: "vocab-btn-save vocab-unified-ai-btn"
         });
 
-        // ── AI Parse button handler ──
-        aiBtn.onclick = async () => {
+        // ── AI Parse button handler (also triggered by Enter key) ──
+        const triggerAi = async () => {
             const text = smartTextEl.value.trim();
             if (!text || this.isAiBusy) return;
             this.isAiBusy = true;
@@ -679,6 +679,15 @@ class ZenVocabAIView extends ItemView {
                 }
             }
         };
+        aiBtn.onclick = triggerAi;
+
+        // ── Enter key triggers AI parse/translate ──
+        smartTextEl.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                triggerAi();
+            }
+        });
 
         // ── Inline AI results container ──
         this.aiResultsContainer = inputArea.createDiv({ cls: "vocab-ai-results-section" });
@@ -965,27 +974,40 @@ class ZenVocabAIView extends ItemView {
         const empty = this.aiResultsContainer.querySelector('.vocab-empty');
         if (empty) empty.remove();
 
-        const card = this.aiResultsContainer.createDiv({ cls: "vocab-card" });
-        MarkdownRenderer.renderMarkdown(cardMd, card, '', this.plugin);
+        const card = this.aiResultsContainer.createDiv({ cls: "vocab-card vocab-ai-card" });
+        const cardBody = card.createDiv({ cls: "vocab-ai-card-body" });
+        MarkdownRenderer.renderMarkdown(cardMd, cardBody, '', this.plugin);
 
         const actionArea = card.createDiv({ cls: "vocab-ai-action-row" });
 
         const insBtn = actionArea.createEl("button", { cls: "vocab-btn-save", text: "📥 存入笔记" });
         insBtn.style.cssText = "flex: 1; min-width: 80px;";
-        insBtn.onclick = () => this.plugin.insertAtCursor(cardMd);
+        insBtn.onclick = (e) => { e.stopPropagation(); this.plugin.insertAtCursor(cardMd); };
 
         const cpBtn = actionArea.createEl("button", { cls: "vocab-btn-save", text: "📋 复制" });
         cpBtn.style.cssText = "flex: 1; min-width: 80px;";
-        cpBtn.onclick = () => this.copyToClipboard(cardMd);
+        cpBtn.onclick = (e) => { e.stopPropagation(); this.copyToClipboard(cardMd); };
 
         const bankBtn = actionArea.createEl("button", { cls: "vocab-btn-save", text: "📚 存入词库" });
         bankBtn.style.cssText = "flex: 1; min-width: 80px;";
-        bankBtn.onclick = async () => {
+        bankBtn.onclick = async (e) => {
+            e.stopPropagation();
             const { word, cleanMd } = this.extractWordAndCleanCard(cardMd);
             await this.plugin.appendWord(word, cleanMd, this.currentMode);
             bankBtn.innerText = "✅ 已存入";
             bankBtn.style.color = "var(--vocab-accent-color, magenta)";
             new Notice(`"${word}" 已存入${this.currentMode === 'sentence' ? '句库' : '词库'}`);
+        };
+
+        // Click card to toggle collapse (keep action row visible)
+        card.onclick = () => {
+            cardBody.classList.toggle('is-hidden');
+            card.classList.toggle('is-collapsed');
+            if (cardBody.classList.contains('is-hidden')) {
+                actionArea.style.marginTop = '0';
+            } else {
+                actionArea.style.marginTop = '12px';
+            }
         };
 
         card.scrollIntoView({ behavior: 'smooth', block: 'end' });
