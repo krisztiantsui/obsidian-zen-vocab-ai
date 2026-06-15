@@ -50,7 +50,6 @@ interface ZenVocabAISettings {
     storagePath: string;
     sentenceStoragePath: string;
     theme: string;
-    colorScheme: 'auto' | 'light' | 'dark';
     fontSize: number;
     themeColors: Record<string, { accent: string; secondary: string }>;
     customThemes: Array<{ id: string; name: string; accent: string; secondary: string; baseTheme: string }>;
@@ -68,7 +67,6 @@ const DEFAULT_SETTINGS: ZenVocabAISettings = {
     storagePath: "Vocab/Vocab_Bank.md",
     sentenceStoragePath: "Vocab/Sentence_Bank.md",
     theme: "frog",
-    colorScheme: 'auto',
     fontSize: 13,
     themeColors: {
         'frog': { accent: '#ff6b9c', secondary: '#92f7e6' },
@@ -1290,19 +1288,10 @@ export default class ZenVocabAIPlugin extends Plugin {
         this.registerView(VIEW_TYPE, (leaf) => new ZenVocabAIView(leaf, this));
         this.addRibbonIcon('lotus-pod-icon', '忘·言 AI | ZenVocab AI', () => { this.activateView(); });
 
-        // Re-render on theme change (for auto color scheme)
-        if (this.settings.colorScheme === 'auto') {
-            const observer = new MutationObserver(() => {
-                this.app.workspace.trigger('vocab-settings-updated');
-            });
-            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-            this.register(() => observer.disconnect());
-        }
     }
 
     onunload() {
         document.body.classList.remove('vocab-theme-modern', 'vocab-theme-zen', 'vocab-theme-dao', 'vocab-theme-frog', 'vocab-theme-custom', 'vocab-theme-pond', 'vocab-theme-dusk');
-        document.body.classList.remove('vocab-scheme-light', 'vocab-scheme-dark');
         const zenVars = ['--vocab-accent-color', '--vocab-primary-color', '--vocab-brand-gradient',
             '--zen-cyan', '--zen-cyan-rgb', '--zen-pink', '--zen-pink-rgb',
             '--zen-blue', '--zen-blue-rgb', '--zen-green', '--zen-green-rgb', '--zen-idle', '--zen-idle-rgb'];
@@ -1341,17 +1330,8 @@ export default class ZenVocabAIPlugin extends Plugin {
         document.body.style.setProperty('--vocab-primary-color', primary);
         document.body.style.setProperty('--vocab-brand-gradient', gradient);
 
-        // Color scheme variables — applied to body so modal inherits too
-        const scheme = this.settings.colorScheme || 'auto';
-        const bodyClass = document.body.className;
-        const isDark = scheme === 'dark' || (scheme === 'auto' && !bodyClass.includes('theme-light'));
-        document.body.classList.toggle('vocab-scheme-light', !isDark);
-        document.body.classList.toggle('vocab-scheme-dark', isDark);
-
-        // Dark: fluorescent palette. Light: grounded palette for white backgrounds.
-        const z = isDark
-            ? { c: '#92f7e6', cr: '146,247,230', p: '#ff6b9c', pr: '255,107,156', b: '#70a0ff', br: '112,160,255', g: '#5b8e39', gr: '91,142,57', i: '#7c7c92', ir: '124,124,146' }
-            : { c: '#4a9e8a', cr: '74,158,138', p: '#c44a6e', pr: '196,74,110', b: '#4a6fd4', br: '74,111,212', g: '#4a7a2e', gr: '74,122,46', i: '#6b6b80', ir: '107,107,128' };
+        // Zen palette variables — applied to body so modal inherits too
+        const z = { c: '#92f7e6', cr: '146,247,230', p: '#ff6b9c', pr: '255,107,156', b: '#70a0ff', br: '112,160,255', g: '#5b8e39', gr: '91,142,57', i: '#7c7c92', ir: '124,124,146' };
         document.body.style.setProperty('--zen-cyan', z.c);
         document.body.style.setProperty('--zen-cyan-rgb', z.cr);
         document.body.style.setProperty('--zen-pink', z.p);
@@ -1646,36 +1626,21 @@ class ZenVocabSettingTab extends PluginSettingTab {
         new Setting(containerEl)
             .setName('主题风格 | Theme Style')
             .addDropdown(drop => {
-                const THEME_NAMES: Record<string, string> = {
-                    'frog': '🐸 小青蛙', 'pond': '🌿 薄荷池塘', 'dusk': '🌙 夜色池塘'
-                };
-                const SCHEME_LABELS: Record<string, string> = {
-                    'auto': '跟随系统', 'light': '浅色', 'dark': '深色'
-                };
-                const baseThemes = ['frog', 'pond', 'dusk'];
-                baseThemes.forEach(base => {
-                    for (const s of ['auto', 'light', 'dark'] as const) {
-                        const key = `${base}-${s}`;
-                        drop.addOption(key, `${THEME_NAMES[base]} · ${SCHEME_LABELS[s]}`);
-                    }
-                });
+                drop.addOption('frog', '🐸 小青蛙 | Frog')
+                    .addOption('pond', '🌿 薄荷池塘 | Pond')
+                    .addOption('dusk', '🌙 夜色池塘 | Dusk');
+
                 this.plugin.settings.customThemes.forEach(t => {
                     drop.addOption(t.id, `自定义 | ${t.name}`);
                 });
 
-                const currentThemeKey = `${this.plugin.settings.theme}-${this.plugin.settings.colorScheme || 'auto'}`;
-                drop.setValue(currentThemeKey)
+                drop.setValue(this.plugin.settings.theme)
                     .onChange(async (value) => {
-                        if (value.startsWith('custom-')) {
-                            this.plugin.settings.theme = value;
-                        } else {
-                            const lastDash = value.lastIndexOf('-');
-                            this.plugin.settings.theme = value.substring(0, lastDash);
-                            this.plugin.settings.colorScheme = value.substring(lastDash + 1) as 'auto' | 'light' | 'dark';
-                        }
+                        this.plugin.settings.theme = value;
                         await this.plugin.saveSettings();
                         this.plugin.applyTheme();
-                        window.location.reload();
+                        this.plugin.app.workspace.trigger('vocab-settings-updated');
+                        this.display();
                     });
             });
 

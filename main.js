@@ -65,7 +65,6 @@ var DEFAULT_SETTINGS = {
   storagePath: "Vocab/Vocab_Bank.md",
   sentenceStoragePath: "Vocab/Sentence_Bank.md",
   theme: "frog",
-  colorScheme: "auto",
   fontSize: 13,
   themeColors: {
     "frog": { accent: "#ff6b9c", secondary: "#92f7e6" },
@@ -1318,17 +1317,9 @@ var ZenVocabAIPlugin = class extends import_obsidian.Plugin {
     this.addRibbonIcon("lotus-pod-icon", "\u5FD8\xB7\u8A00 AI | ZenVocab AI", () => {
       this.activateView();
     });
-    if (this.settings.colorScheme === "auto") {
-      const observer = new MutationObserver(() => {
-        this.app.workspace.trigger("vocab-settings-updated");
-      });
-      observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-      this.register(() => observer.disconnect());
-    }
   }
   onunload() {
     document.body.classList.remove("vocab-theme-modern", "vocab-theme-zen", "vocab-theme-dao", "vocab-theme-frog", "vocab-theme-custom", "vocab-theme-pond", "vocab-theme-dusk");
-    document.body.classList.remove("vocab-scheme-light", "vocab-scheme-dark");
     const zenVars = [
       "--vocab-accent-color",
       "--vocab-primary-color",
@@ -1374,12 +1365,7 @@ var ZenVocabAIPlugin = class extends import_obsidian.Plugin {
     document.body.style.setProperty("--vocab-accent-color", accent);
     document.body.style.setProperty("--vocab-primary-color", primary);
     document.body.style.setProperty("--vocab-brand-gradient", gradient);
-    const scheme = this.settings.colorScheme || "auto";
-    const bodyClass = document.body.className;
-    const isDark = scheme === "dark" || scheme === "auto" && !bodyClass.includes("theme-light");
-    document.body.classList.toggle("vocab-scheme-light", !isDark);
-    document.body.classList.toggle("vocab-scheme-dark", isDark);
-    const z = isDark ? { c: "#92f7e6", cr: "146,247,230", p: "#ff6b9c", pr: "255,107,156", b: "#70a0ff", br: "112,160,255", g: "#5b8e39", gr: "91,142,57", i: "#7c7c92", ir: "124,124,146" } : { c: "#4a9e8a", cr: "74,158,138", p: "#c44a6e", pr: "196,74,110", b: "#4a6fd4", br: "74,111,212", g: "#4a7a2e", gr: "74,122,46", i: "#6b6b80", ir: "107,107,128" };
+    const z = { c: "#92f7e6", cr: "146,247,230", p: "#ff6b9c", pr: "255,107,156", b: "#70a0ff", br: "112,160,255", g: "#5b8e39", gr: "91,142,57", i: "#7c7c92", ir: "124,124,146" };
     document.body.style.setProperty("--zen-cyan", z.c);
     document.body.style.setProperty("--zen-cyan-rgb", z.cr);
     document.body.style.setProperty("--zen-pink", z.p);
@@ -1650,38 +1636,16 @@ var ZenVocabSettingTab = class extends import_obsidian.PluginSettingTab {
     containerEl.createEl("h2", { text: "\u5FD8\xB7\u8A00 AI | Settings" });
     containerEl.createEl("h3", { text: "\u{1F3A8} \u4E3B\u9898\u4E0E\u5916\u89C2 | Appearance", cls: "vocab-settings-header" });
     new import_obsidian.Setting(containerEl).setName("\u4E3B\u9898\u98CE\u683C | Theme Style").addDropdown((drop) => {
-      const THEME_NAMES = {
-        "frog": "\u{1F438} \u5C0F\u9752\u86D9",
-        "pond": "\u{1F33F} \u8584\u8377\u6C60\u5858",
-        "dusk": "\u{1F319} \u591C\u8272\u6C60\u5858"
-      };
-      const SCHEME_LABELS = {
-        "auto": "\u8DDF\u968F\u7CFB\u7EDF",
-        "light": "\u6D45\u8272",
-        "dark": "\u6DF1\u8272"
-      };
-      const baseThemes = ["frog", "pond", "dusk"];
-      baseThemes.forEach((base) => {
-        for (const s of ["auto", "light", "dark"]) {
-          const key = `${base}-${s}`;
-          drop.addOption(key, `${THEME_NAMES[base]} \xB7 ${SCHEME_LABELS[s]}`);
-        }
-      });
+      drop.addOption("frog", "\u{1F438} \u5C0F\u9752\u86D9 | Frog").addOption("pond", "\u{1F33F} \u8584\u8377\u6C60\u5858 | Pond").addOption("dusk", "\u{1F319} \u591C\u8272\u6C60\u5858 | Dusk");
       this.plugin.settings.customThemes.forEach((t) => {
         drop.addOption(t.id, `\u81EA\u5B9A\u4E49 | ${t.name}`);
       });
-      const currentThemeKey = `${this.plugin.settings.theme}-${this.plugin.settings.colorScheme || "auto"}`;
-      drop.setValue(currentThemeKey).onChange(async (value) => {
-        if (value.startsWith("custom-")) {
-          this.plugin.settings.theme = value;
-        } else {
-          const lastDash = value.lastIndexOf("-");
-          this.plugin.settings.theme = value.substring(0, lastDash);
-          this.plugin.settings.colorScheme = value.substring(lastDash + 1);
-        }
+      drop.setValue(this.plugin.settings.theme).onChange(async (value) => {
+        this.plugin.settings.theme = value;
         await this.plugin.saveSettings();
         this.plugin.applyTheme();
-        window.location.reload();
+        this.plugin.app.workspace.trigger("vocab-settings-updated");
+        this.display();
       });
     });
     const activeTheme = this.plugin.settings.theme;
