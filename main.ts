@@ -1704,9 +1704,9 @@ class ZenVocabSettingTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName('色彩模式 | Color Scheme')
-            .setDesc('自动跟随 Obsidian 主题，或固定为浅色/深色模式')
+            .setDesc('跟随系统自动切换，或固定为浅色/深色模式')
             .addDropdown(drop => drop
-                .addOption('auto', '🔄 自动 | Auto')
+                .addOption('auto', '🌓 跟随系统 | Auto')
                 .addOption('light', '☀️ 浅色 | Light')
                 .addOption('dark', '🌙 深色 | Dark')
                 .setValue(this.plugin.settings.colorScheme)

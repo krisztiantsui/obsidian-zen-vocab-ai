@@ -1658,7 +1658,7 @@ var ZenVocabSettingTab = class extends import_obsidian.PluginSettingTab {
       await this.plugin.saveSettings();
       this.plugin.app.workspace.trigger("vocab-settings-updated");
     }));
-    new import_obsidian.Setting(containerEl).setName("\u8272\u5F69\u6A21\u5F0F | Color Scheme").setDesc("\u81EA\u52A8\u8DDF\u968F Obsidian \u4E3B\u9898\uFF0C\u6216\u56FA\u5B9A\u4E3A\u6D45\u8272/\u6DF1\u8272\u6A21\u5F0F").addDropdown((drop) => drop.addOption("auto", "\u{1F504} \u81EA\u52A8 | Auto").addOption("light", "\u2600\uFE0F \u6D45\u8272 | Light").addOption("dark", "\u{1F319} \u6DF1\u8272 | Dark").setValue(this.plugin.settings.colorScheme).onChange(async (value) => {
+    new import_obsidian.Setting(containerEl).setName("\u8272\u5F69\u6A21\u5F0F | Color Scheme").setDesc("\u8DDF\u968F\u7CFB\u7EDF\u81EA\u52A8\u5207\u6362\uFF0C\u6216\u56FA\u5B9A\u4E3A\u6D45\u8272/\u6DF1\u8272\u6A21\u5F0F").addDropdown((drop) => drop.addOption("auto", "\u{1F313} \u8DDF\u968F\u7CFB\u7EDF | Auto").addOption("light", "\u2600\uFE0F \u6D45\u8272 | Light").addOption("dark", "\u{1F319} \u6DF1\u8272 | Dark").setValue(this.plugin.settings.colorScheme).onChange(async (value) => {
       this.plugin.settings.colorScheme = value;
       await this.plugin.saveSettings();
       window.location.reload();
