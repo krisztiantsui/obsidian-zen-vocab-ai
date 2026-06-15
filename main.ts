@@ -1347,9 +1347,8 @@ export default class ZenVocabAIPlugin extends Plugin {
 
         // Color scheme variables — applied to body so modal inherits too
         const scheme = this.settings.colorScheme || 'auto';
-        const isDark = scheme === 'auto'
-            ? document.body.classList.contains('theme-dark')
-            : scheme === 'dark';
+        const bodyClass = document.body.className;
+        const isDark = scheme === 'dark' || (scheme === 'auto' && !bodyClass.includes('theme-light'));
         document.body.classList.toggle('vocab-scheme-light', !isDark);
         document.body.classList.toggle('vocab-scheme-dark', isDark);
 
