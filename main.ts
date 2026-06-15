@@ -1330,18 +1330,23 @@ export default class ZenVocabAIPlugin extends Plugin {
         document.body.style.setProperty('--vocab-primary-color', primary);
         document.body.style.setProperty('--vocab-brand-gradient', gradient);
 
-        // Zen palette variables — applied to body so modal inherits too
-        const z = { c: '#92f7e6', cr: '146,247,230', p: '#ff6b9c', pr: '255,107,156', b: '#70a0ff', br: '112,160,255', g: '#5b8e39', gr: '91,142,57', i: '#7c7c92', ir: '124,124,146' };
-        document.body.style.setProperty('--zen-cyan', z.c);
-        document.body.style.setProperty('--zen-cyan-rgb', z.cr);
-        document.body.style.setProperty('--zen-pink', z.p);
-        document.body.style.setProperty('--zen-pink-rgb', z.pr);
-        document.body.style.setProperty('--zen-blue', z.b);
-        document.body.style.setProperty('--zen-blue-rgb', z.br);
-        document.body.style.setProperty('--zen-green', z.g);
-        document.body.style.setProperty('--zen-green-rgb', z.gr);
-        document.body.style.setProperty('--zen-idle', z.i);
-        document.body.style.setProperty('--zen-idle-rgb', z.ir);
+        // Zen palette — derived from theme accent/secondary
+        const hexToRgb = (hex: string) => {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `${r},${g},${b}`;
+        };
+        document.body.style.setProperty('--zen-cyan', primary);
+        document.body.style.setProperty('--zen-cyan-rgb', hexToRgb(primary));
+        document.body.style.setProperty('--zen-pink', accent);
+        document.body.style.setProperty('--zen-pink-rgb', hexToRgb(accent));
+        document.body.style.setProperty('--zen-blue', '#70a0ff');
+        document.body.style.setProperty('--zen-blue-rgb', '112,160,255');
+        document.body.style.setProperty('--zen-green', '#5b8e39');
+        document.body.style.setProperty('--zen-green-rgb', '91,142,57');
+        document.body.style.setProperty('--zen-idle', '#7c7c92');
+        document.body.style.setProperty('--zen-idle-rgb', '124,124,146');
     }
 
     // ─── View Management ────────────────────────────────
