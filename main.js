@@ -712,7 +712,8 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
               this.aiResults.push(cardMd);
               this.appendAIResultCard(cardMd);
               successCount++;
-            } catch {
+            } catch (e) {
+              console.error("[ZenVocab] fetchCardParsing failed for", words[i], e);
             }
           }
           if (successCount === 0 && words.length > 0) {
@@ -720,7 +721,8 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
           } else if (successCount < words.length) {
             new import_obsidian.Notice(`\u5DF2\u89E3\u6790 ${successCount}/${words.length} \u4E2A\u8BCD\u6C47`);
           }
-        } catch {
+        } catch (e) {
+          console.error("[ZenVocab] extractKeywords failed", e);
           new import_obsidian.Notice("\u5173\u952E\u8BCD\u63D0\u53D6\u5931\u8D25");
         } finally {
           aiBtn.innerText = "Parse";
@@ -734,7 +736,8 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
           const cardMd = await this.plugin.fetchTranslation(text);
           this.aiResults.push(cardMd);
           this.appendAIResultCard(cardMd);
-        } catch {
+        } catch (e) {
+          console.error("[ZenVocab] fetchTranslation failed", e);
           new import_obsidian.Notice("\u7FFB\u8BD1\u89E3\u6790\u5931\u8D25");
         } finally {
           aiBtn.innerText = "Translate";
@@ -808,8 +811,9 @@ var ZenVocabAIView = class extends import_obsidian.ItemView {
         if (this.filterType === "date")
           return v.date === this.filterDate;
         if (this.filterType === "week") {
-          const weekStart = window.moment(this.filterWeek).startOf("isoWeek").format("YYYY-MM-DD");
-          const weekEnd = window.moment(this.filterWeek).endOf("isoWeek").format("YYYY-MM-DD");
+          const ws = window.moment(this.filterWeek);
+          const weekStart = ws.clone().startOf("isoWeek").format("YYYY-MM-DD");
+          const weekEnd = ws.clone().endOf("isoWeek").format("YYYY-MM-DD");
           return v.date >= weekStart && v.date <= weekEnd;
         }
         if (this.filterType === "month")
@@ -1324,9 +1328,23 @@ var ZenVocabAIPlugin = class extends import_obsidian.Plugin {
   }
   onunload() {
     document.body.classList.remove("vocab-theme-modern", "vocab-theme-zen", "vocab-theme-dao", "vocab-theme-frog", "vocab-theme-custom", "vocab-theme-pond", "vocab-theme-dusk");
-    document.body.style.removeProperty("--vocab-accent-color");
-    document.body.style.removeProperty("--vocab-primary-color");
-    document.body.style.removeProperty("--vocab-brand-gradient");
+    document.body.classList.remove("vocab-scheme-light", "vocab-scheme-dark");
+    const zenVars = [
+      "--vocab-accent-color",
+      "--vocab-primary-color",
+      "--vocab-brand-gradient",
+      "--zen-cyan",
+      "--zen-cyan-rgb",
+      "--zen-pink",
+      "--zen-pink-rgb",
+      "--zen-blue",
+      "--zen-blue-rgb",
+      "--zen-green",
+      "--zen-green-rgb",
+      "--zen-idle",
+      "--zen-idle-rgb"
+    ];
+    zenVars.forEach((v) => document.body.style.removeProperty(v));
   }
   // ─── Theme ──────────────────────────────────────────
   applyTheme() {
@@ -1583,12 +1601,24 @@ var QRCodeModal = class extends import_obsidian.Modal {
       const vaultRelativePath = `.obsidian/plugins/obsidian-zen-vocab-ai/${this.imgFile}`;
       const arrayBuffer = await this.app.vault.adapter.readBinary(vaultRelativePath);
       const bytes = new Uint8Array(arrayBuffer);
-      const chunks = [];
-      const CHUNK = 8192;
-      for (let i = 0; i < bytes.length; i += CHUNK) {
-        chunks.push(String.fromCharCode(...bytes.slice(i, i + CHUNK)));
+      let base64 = "";
+      for (let i = 0; i < bytes.length; i += 3) {
+        const a = bytes[i];
+        const b = bytes[i + 1] ?? 0;
+        const c = bytes[i + 2] ?? 0;
+        base64 += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[a >> 2];
+        base64 += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(a & 3) << 4 | b >> 4];
+        if (i + 1 < bytes.length) {
+          base64 += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(b & 15) << 2 | c >> 6];
+        } else {
+          base64 += "=";
+        }
+        if (i + 2 < bytes.length) {
+          base64 += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[c & 63];
+        } else {
+          base64 += "=";
+        }
       }
-      const base64 = btoa(chunks.join(""));
       imgWrapper.createEl("img", {
         attr: { src: `data:image/png;base64,${base64}`, alt: this.title },
         cls: "vocab-qrcode-img"

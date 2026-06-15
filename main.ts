@@ -44,13 +44,6 @@ const LOTUS_POD_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200
   <circle cx="118.4" cy="118.4" r="6" fill="var(--background-primary)"/>
 </svg>`;
 
-const AI_BOOK_ICON = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-  <path d="M12 6v7"/>
-  <path d="M9 9h6"/>
-</svg>`;
-
 // ─── Settings ────────────────────────────────────────────────
 interface ZenVocabAISettings {
     // Vocab bank settings (from ZenVocab)
@@ -652,14 +645,14 @@ class ZenVocabAIView extends ItemView {
                             this.aiResults.push(cardMd);
                             this.appendAIResultCard(cardMd);
                             successCount++;
-                        } catch { /* skip failed word */ }
+                        } catch (e) { console.error('[ZenVocab] fetchCardParsing failed for', words[i], e); }
                     }
                     if (successCount === 0 && words.length > 0) {
                         new Notice("解析失败，请检查 API 设置");
                     } else if (successCount < words.length) {
                         new Notice(`已解析 ${successCount}/${words.length} 个词汇`);
                     }
-                } catch { new Notice("关键词提取失败"); }
+                } catch (e) { console.error('[ZenVocab] extractKeywords failed', e); new Notice("关键词提取失败"); }
                 finally {
                     aiBtn.innerText = "Parse";
                     this.isAiBusy = false;
@@ -672,7 +665,7 @@ class ZenVocabAIView extends ItemView {
                     const cardMd = await this.plugin.fetchTranslation(text);
                     this.aiResults.push(cardMd);
                     this.appendAIResultCard(cardMd);
-                } catch { new Notice("翻译解析失败"); }
+                } catch (e) { console.error('[ZenVocab] fetchTranslation failed', e); new Notice("翻译解析失败"); }
                 finally {
                     aiBtn.innerText = "Translate";
                     this.isAiBusy = false;
@@ -745,8 +738,9 @@ class ZenVocabAIView extends ItemView {
                 if (v.date === "早期记录") return false;
                 if (this.filterType === 'date') return v.date === this.filterDate;
                 if (this.filterType === 'week') {
-                    const weekStart = (window as any).moment(this.filterWeek).startOf('isoWeek').format('YYYY-MM-DD');
-                    const weekEnd = (window as any).moment(this.filterWeek).endOf('isoWeek').format('YYYY-MM-DD');
+                    const ws = (window as any).moment(this.filterWeek);
+                    const weekStart = ws.clone().startOf('isoWeek').format('YYYY-MM-DD');
+                    const weekEnd = ws.clone().endOf('isoWeek').format('YYYY-MM-DD');
                     return v.date >= weekStart && v.date <= weekEnd;
                 }
                 if (this.filterType === 'month') return v.date.startsWith(this.filterMonth);
@@ -1308,9 +1302,11 @@ export default class ZenVocabAIPlugin extends Plugin {
 
     onunload() {
         document.body.classList.remove('vocab-theme-modern', 'vocab-theme-zen', 'vocab-theme-dao', 'vocab-theme-frog', 'vocab-theme-custom', 'vocab-theme-pond', 'vocab-theme-dusk');
-        document.body.style.removeProperty('--vocab-accent-color');
-        document.body.style.removeProperty('--vocab-primary-color');
-        document.body.style.removeProperty('--vocab-brand-gradient');
+        document.body.classList.remove('vocab-scheme-light', 'vocab-scheme-dark');
+        const zenVars = ['--vocab-accent-color', '--vocab-primary-color', '--vocab-brand-gradient',
+            '--zen-cyan', '--zen-cyan-rgb', '--zen-pink', '--zen-pink-rgb',
+            '--zen-blue', '--zen-blue-rgb', '--zen-green', '--zen-green-rgb', '--zen-idle', '--zen-idle-rgb'];
+        zenVars.forEach(v => document.body.style.removeProperty(v));
     }
 
     // ─── Theme ──────────────────────────────────────────
@@ -1587,12 +1583,25 @@ class QRCodeModal extends Modal {
             const vaultRelativePath = `.obsidian/plugins/obsidian-zen-vocab-ai/${this.imgFile}`;
             const arrayBuffer = await this.app.vault.adapter.readBinary(vaultRelativePath);
             const bytes = new Uint8Array(arrayBuffer);
-            const chunks: string[] = [];
-            const CHUNK = 8192;
-            for (let i = 0; i < bytes.length; i += CHUNK) {
-                chunks.push(String.fromCharCode(...bytes.slice(i, i + CHUNK)));
+            // Safe btoa: process 3 bytes at a time to avoid multi-byte boundary errors
+            let base64 = '';
+            for (let i = 0; i < bytes.length; i += 3) {
+                const a = bytes[i];
+                const b = bytes[i + 1] ?? 0;
+                const c = bytes[i + 2] ?? 0;
+                base64 += 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'[a >> 2];
+                base64 += 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'[((a & 3) << 4) | (b >> 4)];
+                if (i + 1 < bytes.length) {
+                    base64 += 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'[((b & 15) << 2) | (c >> 6)];
+                } else {
+                    base64 += '=';
+                }
+                if (i + 2 < bytes.length) {
+                    base64 += 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'[c & 63];
+                } else {
+                    base64 += '=';
+                }
             }
-            const base64 = btoa(chunks.join(''));
 
             imgWrapper.createEl('img', {
                 attr: { src: `data:image/png;base64,${base64}`, alt: this.title },
