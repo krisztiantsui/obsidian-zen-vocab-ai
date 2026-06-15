@@ -3,20 +3,10 @@
    Design language: capsule pills, subtle rgba layers, cyan-pink palette
    ================================================================ */
 
-/* --- 1. Theme Variables (Bujo Palette) --- */
+/* --- 1. Theme Variables (Bujo Palette) — color vars set by JS on body --- */
 .vocab-view-container {
-    --zen-cyan: #92f7e6;
-    --zen-cyan-rgb: 146, 247, 230;
-    --zen-pink: #ff6b9c;
-    --zen-pink-rgb: 255, 107, 156;
-    --zen-blue: #70a0ff;
-    --zen-blue-rgb: 112, 160, 255;
-    --zen-green: #5b8e39;
-    --zen-green-rgb: 91, 142, 57;
     --zen-amber: #a1763a;
     --zen-amber-rgb: 161, 118, 58;
-    --zen-idle: #7c7c92;
-    --zen-idle-rgb: 124, 124, 146;
     --zen-line: rgba(var(--zen-cyan-rgb), 0.22);
     --zen-soft: rgba(var(--zen-cyan-rgb), 0.08);
     --zen-soft-strong: rgba(var(--zen-cyan-rgb), 0.13);
@@ -48,6 +38,23 @@ body.vocab-theme-modern  { /* frog palette */ }
 body.vocab-theme-zen    { /* pond palette */ }
 body.vocab-theme-dao    { /* dusk palette */ }
 body.vocab-theme-frog   { /* frog palette (legacy) */ }
+
+/* ── Light scheme: slightly dial up border/background visibility ── */
+body.vocab-scheme-light .vocab-view-container .vocab-smart-textarea {
+    border-color: rgba(var(--zen-cyan-rgb), 0.25) !important;
+}
+body.vocab-scheme-light .vocab-view-container .vocab-search-wrapper {
+    border-color: rgba(var(--zen-cyan-rgb), 0.25);
+}
+body.vocab-scheme-light .vocab-view-container .vocab-empty {
+    border-color: rgba(var(--zen-cyan-rgb), 0.25);
+}
+body.vocab-scheme-light .vocab-view-container .vocab-card {
+    border-color: rgba(var(--zen-cyan-rgb), 0.14) !important;
+}
+body.vocab-scheme-light .vocab-view-container .vocab-context-header {
+    border-color: rgba(var(--zen-cyan-rgb), 0.18);
+}
 
 /* --- 2. Scrollbar --- */
 .vocab-view-container ::-webkit-scrollbar { width: 5px; }
@@ -734,16 +741,6 @@ button.vocab-btn-save.is-primary-action:hover,
 
 /* --- 22. Calendar Modal --- */
 .vocab-calendar-modal {
-    --zen-cyan: #92f7e6;
-    --zen-cyan-rgb: 146, 247, 230;
-    --zen-pink: #ff6b9c;
-    --zen-pink-rgb: 255, 107, 156;
-    --zen-blue: #70a0ff;
-    --zen-blue-rgb: 112, 160, 255;
-    --zen-green: #5b8e39;
-    --zen-green-rgb: 91, 142, 57;
-    --zen-idle: #7c7c92;
-    --zen-idle-rgb: 124, 124, 146;
     --zen-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --zen-radius-xs: 6px;
 }

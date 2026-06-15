@@ -65,6 +65,7 @@ var DEFAULT_SETTINGS = {
   storagePath: "Vocab/Vocab_Bank.md",
   sentenceStoragePath: "Vocab/Sentence_Bank.md",
   theme: "frog",
+  colorScheme: "auto",
   fontSize: 13,
   themeColors: {
     "frog": { accent: "#ff6b9c", secondary: "#92f7e6" },
@@ -1313,6 +1314,13 @@ var ZenVocabAIPlugin = class extends import_obsidian.Plugin {
     this.addRibbonIcon("lotus-pod-icon", "\u5FD8\xB7\u8A00 AI | ZenVocab AI", () => {
       this.activateView();
     });
+    if (this.settings.colorScheme === "auto") {
+      const observer = new MutationObserver(() => {
+        this.app.workspace.trigger("vocab-settings-updated");
+      });
+      observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+      this.register(() => observer.disconnect());
+    }
   }
   onunload() {
     document.body.classList.remove("vocab-theme-modern", "vocab-theme-zen", "vocab-theme-dao", "vocab-theme-frog", "vocab-theme-custom", "vocab-theme-pond", "vocab-theme-dusk");
@@ -1348,6 +1356,21 @@ var ZenVocabAIPlugin = class extends import_obsidian.Plugin {
     document.body.style.setProperty("--vocab-accent-color", accent);
     document.body.style.setProperty("--vocab-primary-color", primary);
     document.body.style.setProperty("--vocab-brand-gradient", gradient);
+    const scheme = this.settings.colorScheme || "auto";
+    const isDark = scheme === "auto" ? document.body.classList.contains("theme-dark") : scheme === "dark";
+    document.body.classList.toggle("vocab-scheme-light", !isDark);
+    document.body.classList.toggle("vocab-scheme-dark", isDark);
+    const z = isDark ? { c: "#92f7e6", cr: "146,247,230", p: "#ff6b9c", pr: "255,107,156", b: "#70a0ff", br: "112,160,255", g: "#5b8e39", gr: "91,142,57", i: "#7c7c92", ir: "124,124,146" } : { c: "#3a8b78", cr: "58,139,120", p: "#d6336c", pr: "214,51,108", b: "#4a6fd4", br: "74,111,212", g: "#3d7028", gr: "61,112,40", i: "#6b6b80", ir: "107,107,128" };
+    document.body.style.setProperty("--zen-cyan", z.c);
+    document.body.style.setProperty("--zen-cyan-rgb", z.cr);
+    document.body.style.setProperty("--zen-pink", z.p);
+    document.body.style.setProperty("--zen-pink-rgb", z.pr);
+    document.body.style.setProperty("--zen-blue", z.b);
+    document.body.style.setProperty("--zen-blue-rgb", z.br);
+    document.body.style.setProperty("--zen-green", z.g);
+    document.body.style.setProperty("--zen-green-rgb", z.gr);
+    document.body.style.setProperty("--zen-idle", z.i);
+    document.body.style.setProperty("--zen-idle-rgb", z.ir);
   }
   // ─── View Management ────────────────────────────────
   async activateView() {
@@ -1634,6 +1657,11 @@ var ZenVocabSettingTab = class extends import_obsidian.PluginSettingTab {
       this.plugin.settings.fontSize = value;
       await this.plugin.saveSettings();
       this.plugin.app.workspace.trigger("vocab-settings-updated");
+    }));
+    new import_obsidian.Setting(containerEl).setName("\u8272\u5F69\u6A21\u5F0F | Color Scheme").setDesc("\u81EA\u52A8\u8DDF\u968F Obsidian \u4E3B\u9898\uFF0C\u6216\u56FA\u5B9A\u4E3A\u6D45\u8272/\u6DF1\u8272\u6A21\u5F0F").addDropdown((drop) => drop.addOption("auto", "\u{1F504} \u81EA\u52A8 | Auto").addOption("light", "\u2600\uFE0F \u6D45\u8272 | Light").addOption("dark", "\u{1F319} \u6DF1\u8272 | Dark").setValue(this.plugin.settings.colorScheme).onChange(async (value) => {
+      this.plugin.settings.colorScheme = value;
+      await this.plugin.saveSettings();
+      window.location.reload();
     }));
     containerEl.createEl("h4", { text: "\u8272\u5F69\u5DE5\u574A | Custom Themes" });
     new import_obsidian.Setting(containerEl).setName("\u65B0\u589E\u8C03\u8272\u677F").setDesc("\u81EA\u52A8\u7EE7\u627F\u5F53\u524D\u9009\u4E2D\u4E3B\u9898\u7684\u914D\u8272\u4E0E\u52A8\u753B\u5E03\u5C40\uFF0C\u521B\u5EFA\u4E13\u5C5E\u4E3B\u9898\u3002").addButton((btn) => btn.setButtonText("\u6DFB\u52A0\u4E3B\u9898").onClick(async () => {

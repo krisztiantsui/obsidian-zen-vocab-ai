@@ -57,6 +57,7 @@ interface ZenVocabAISettings {
     storagePath: string;
     sentenceStoragePath: string;
     theme: string;
+    colorScheme: 'auto' | 'light' | 'dark';
     fontSize: number;
     themeColors: Record<string, { accent: string; secondary: string }>;
     customThemes: Array<{ id: string; name: string; accent: string; secondary: string; baseTheme: string }>;
@@ -74,6 +75,7 @@ const DEFAULT_SETTINGS: ZenVocabAISettings = {
     storagePath: "Vocab/Vocab_Bank.md",
     sentenceStoragePath: "Vocab/Sentence_Bank.md",
     theme: "frog",
+    colorScheme: 'auto',
     fontSize: 13,
     themeColors: {
         'frog': { accent: '#ff6b9c', secondary: '#92f7e6' },
@@ -1293,6 +1295,15 @@ export default class ZenVocabAIPlugin extends Plugin {
         this.addSettingTab(new ZenVocabSettingTab(this.app, this));
         this.registerView(VIEW_TYPE, (leaf) => new ZenVocabAIView(leaf, this));
         this.addRibbonIcon('lotus-pod-icon', '忘·言 AI | ZenVocab AI', () => { this.activateView(); });
+
+        // Re-render on theme change (for auto color scheme)
+        if (this.settings.colorScheme === 'auto') {
+            const observer = new MutationObserver(() => {
+                this.app.workspace.trigger('vocab-settings-updated');
+            });
+            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+            this.register(() => observer.disconnect());
+        }
     }
 
     onunload() {
@@ -1333,6 +1344,28 @@ export default class ZenVocabAIPlugin extends Plugin {
         document.body.style.setProperty('--vocab-accent-color', accent);
         document.body.style.setProperty('--vocab-primary-color', primary);
         document.body.style.setProperty('--vocab-brand-gradient', gradient);
+
+        // Color scheme variables — applied to body so modal inherits too
+        const scheme = this.settings.colorScheme || 'auto';
+        const isDark = scheme === 'auto'
+            ? document.body.classList.contains('theme-dark')
+            : scheme === 'dark';
+        document.body.classList.toggle('vocab-scheme-light', !isDark);
+        document.body.classList.toggle('vocab-scheme-dark', isDark);
+
+        const z = isDark
+            ? { c: '#92f7e6', cr: '146,247,230', p: '#ff6b9c', pr: '255,107,156', b: '#70a0ff', br: '112,160,255', g: '#5b8e39', gr: '91,142,57', i: '#7c7c92', ir: '124,124,146' }
+            : { c: '#3a8b78', cr: '58,139,120', p: '#d6336c', pr: '214,51,108', b: '#4a6fd4', br: '74,111,212', g: '#3d7028', gr: '61,112,40', i: '#6b6b80', ir: '107,107,128' };
+        document.body.style.setProperty('--zen-cyan', z.c);
+        document.body.style.setProperty('--zen-cyan-rgb', z.cr);
+        document.body.style.setProperty('--zen-pink', z.p);
+        document.body.style.setProperty('--zen-pink-rgb', z.pr);
+        document.body.style.setProperty('--zen-blue', z.b);
+        document.body.style.setProperty('--zen-blue-rgb', z.br);
+        document.body.style.setProperty('--zen-green', z.g);
+        document.body.style.setProperty('--zen-green-rgb', z.gr);
+        document.body.style.setProperty('--zen-idle', z.i);
+        document.body.style.setProperty('--zen-idle-rgb', z.ir);
     }
 
     // ─── View Management ────────────────────────────────
@@ -1667,6 +1700,20 @@ class ZenVocabSettingTab extends PluginSettingTab {
                     this.plugin.settings.fontSize = value;
                     await this.plugin.saveSettings();
                     this.plugin.app.workspace.trigger('vocab-settings-updated');
+                }));
+
+        new Setting(containerEl)
+            .setName('色彩模式 | Color Scheme')
+            .setDesc('自动跟随 Obsidian 主题，或固定为浅色/深色模式')
+            .addDropdown(drop => drop
+                .addOption('auto', '🔄 自动 | Auto')
+                .addOption('light', '☀️ 浅色 | Light')
+                .addOption('dark', '🌙 深色 | Dark')
+                .setValue(this.plugin.settings.colorScheme)
+                .onChange(async (value) => {
+                    this.plugin.settings.colorScheme = value as 'auto' | 'light' | 'dark';
+                    await this.plugin.saveSettings();
+                    window.location.reload();
                 }));
 
         containerEl.createEl('h4', { text: '色彩工坊 | Custom Themes' });
