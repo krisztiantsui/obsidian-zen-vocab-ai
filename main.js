@@ -1361,7 +1361,7 @@ var ZenVocabAIPlugin = class extends import_obsidian.Plugin {
     const isDark = scheme === "dark" || scheme === "auto" && !bodyClass.includes("theme-light");
     document.body.classList.toggle("vocab-scheme-light", !isDark);
     document.body.classList.toggle("vocab-scheme-dark", isDark);
-    const z = isDark ? { c: "#92f7e6", cr: "146,247,230", p: "#ff6b9c", pr: "255,107,156", b: "#70a0ff", br: "112,160,255", g: "#5b8e39", gr: "91,142,57", i: "#7c7c92", ir: "124,124,146" } : { c: "#3a8b78", cr: "58,139,120", p: "#d6336c", pr: "214,51,108", b: "#4a6fd4", br: "74,111,212", g: "#3d7028", gr: "61,112,40", i: "#6b6b80", ir: "107,107,128" };
+    const z = { c: "#92f7e6", cr: "146,247,230", p: "#ff6b9c", pr: "255,107,156", b: "#70a0ff", br: "112,160,255", g: "#5b8e39", gr: "91,142,57", i: "#7c7c92", ir: "124,124,146" };
     document.body.style.setProperty("--zen-cyan", z.c);
     document.body.style.setProperty("--zen-cyan-rgb", z.cr);
     document.body.style.setProperty("--zen-pink", z.p);
