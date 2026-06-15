@@ -1646,21 +1646,36 @@ class ZenVocabSettingTab extends PluginSettingTab {
         new Setting(containerEl)
             .setName('主题风格 | Theme Style')
             .addDropdown(drop => {
-                drop.addOption('frog', '🐸 小青蛙 | Frog')
-                    .addOption('pond', '🌿 薄荷池塘 | Pond')
-                    .addOption('dusk', '🌙 夜色池塘 | Dusk');
-
+                const THEME_NAMES: Record<string, string> = {
+                    'frog': '🐸 小青蛙', 'pond': '🌿 薄荷池塘', 'dusk': '🌙 夜色池塘'
+                };
+                const SCHEME_LABELS: Record<string, string> = {
+                    'auto': '跟随系统', 'light': '浅色', 'dark': '深色'
+                };
+                const baseThemes = ['frog', 'pond', 'dusk'];
+                baseThemes.forEach(base => {
+                    for (const s of ['auto', 'light', 'dark'] as const) {
+                        const key = `${base}-${s}`;
+                        drop.addOption(key, `${THEME_NAMES[base]} · ${SCHEME_LABELS[s]}`);
+                    }
+                });
                 this.plugin.settings.customThemes.forEach(t => {
                     drop.addOption(t.id, `自定义 | ${t.name}`);
                 });
 
-                drop.setValue(this.plugin.settings.theme)
+                const currentThemeKey = `${this.plugin.settings.theme}-${this.plugin.settings.colorScheme || 'auto'}`;
+                drop.setValue(currentThemeKey)
                     .onChange(async (value) => {
-                        this.plugin.settings.theme = value;
+                        if (value.startsWith('custom-')) {
+                            this.plugin.settings.theme = value;
+                        } else {
+                            const lastDash = value.lastIndexOf('-');
+                            this.plugin.settings.theme = value.substring(0, lastDash);
+                            this.plugin.settings.colorScheme = value.substring(lastDash + 1) as 'auto' | 'light' | 'dark';
+                        }
                         await this.plugin.saveSettings();
                         this.plugin.applyTheme();
-                        this.plugin.app.workspace.trigger('vocab-settings-updated');
-                        this.display();
+                        window.location.reload();
                     });
             });
 
@@ -1709,20 +1724,6 @@ class ZenVocabSettingTab extends PluginSettingTab {
                     this.plugin.settings.fontSize = value;
                     await this.plugin.saveSettings();
                     this.plugin.app.workspace.trigger('vocab-settings-updated');
-                }));
-
-        new Setting(containerEl)
-            .setName('色彩模式 | Color Scheme')
-            .setDesc('跟随系统自动切换，或固定为浅色/深色模式')
-            .addDropdown(drop => drop
-                .addOption('auto', '🌓 跟随系统 | Auto')
-                .addOption('light', '☀️ 浅色 | Light')
-                .addOption('dark', '🌙 深色 | Dark')
-                .setValue(this.plugin.settings.colorScheme)
-                .onChange(async (value) => {
-                    this.plugin.settings.colorScheme = value as 'auto' | 'light' | 'dark';
-                    await this.plugin.saveSettings();
-                    window.location.reload();
                 }));
 
         containerEl.createEl('h4', { text: '色彩工坊 | Custom Themes' });

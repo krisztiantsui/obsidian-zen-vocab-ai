@@ -1650,16 +1650,38 @@ var ZenVocabSettingTab = class extends import_obsidian.PluginSettingTab {
     containerEl.createEl("h2", { text: "\u5FD8\xB7\u8A00 AI | Settings" });
     containerEl.createEl("h3", { text: "\u{1F3A8} \u4E3B\u9898\u4E0E\u5916\u89C2 | Appearance", cls: "vocab-settings-header" });
     new import_obsidian.Setting(containerEl).setName("\u4E3B\u9898\u98CE\u683C | Theme Style").addDropdown((drop) => {
-      drop.addOption("frog", "\u{1F438} \u5C0F\u9752\u86D9 | Frog").addOption("pond", "\u{1F33F} \u8584\u8377\u6C60\u5858 | Pond").addOption("dusk", "\u{1F319} \u591C\u8272\u6C60\u5858 | Dusk");
+      const THEME_NAMES = {
+        "frog": "\u{1F438} \u5C0F\u9752\u86D9",
+        "pond": "\u{1F33F} \u8584\u8377\u6C60\u5858",
+        "dusk": "\u{1F319} \u591C\u8272\u6C60\u5858"
+      };
+      const SCHEME_LABELS = {
+        "auto": "\u8DDF\u968F\u7CFB\u7EDF",
+        "light": "\u6D45\u8272",
+        "dark": "\u6DF1\u8272"
+      };
+      const baseThemes = ["frog", "pond", "dusk"];
+      baseThemes.forEach((base) => {
+        for (const s of ["auto", "light", "dark"]) {
+          const key = `${base}-${s}`;
+          drop.addOption(key, `${THEME_NAMES[base]} \xB7 ${SCHEME_LABELS[s]}`);
+        }
+      });
       this.plugin.settings.customThemes.forEach((t) => {
         drop.addOption(t.id, `\u81EA\u5B9A\u4E49 | ${t.name}`);
       });
-      drop.setValue(this.plugin.settings.theme).onChange(async (value) => {
-        this.plugin.settings.theme = value;
+      const currentThemeKey = `${this.plugin.settings.theme}-${this.plugin.settings.colorScheme || "auto"}`;
+      drop.setValue(currentThemeKey).onChange(async (value) => {
+        if (value.startsWith("custom-")) {
+          this.plugin.settings.theme = value;
+        } else {
+          const lastDash = value.lastIndexOf("-");
+          this.plugin.settings.theme = value.substring(0, lastDash);
+          this.plugin.settings.colorScheme = value.substring(lastDash + 1);
+        }
         await this.plugin.saveSettings();
         this.plugin.applyTheme();
-        this.plugin.app.workspace.trigger("vocab-settings-updated");
-        this.display();
+        window.location.reload();
       });
     });
     const activeTheme = this.plugin.settings.theme;
@@ -1688,11 +1710,6 @@ var ZenVocabSettingTab = class extends import_obsidian.PluginSettingTab {
       this.plugin.settings.fontSize = value;
       await this.plugin.saveSettings();
       this.plugin.app.workspace.trigger("vocab-settings-updated");
-    }));
-    new import_obsidian.Setting(containerEl).setName("\u8272\u5F69\u6A21\u5F0F | Color Scheme").setDesc("\u8DDF\u968F\u7CFB\u7EDF\u81EA\u52A8\u5207\u6362\uFF0C\u6216\u56FA\u5B9A\u4E3A\u6D45\u8272/\u6DF1\u8272\u6A21\u5F0F").addDropdown((drop) => drop.addOption("auto", "\u{1F313} \u8DDF\u968F\u7CFB\u7EDF | Auto").addOption("light", "\u2600\uFE0F \u6D45\u8272 | Light").addOption("dark", "\u{1F319} \u6DF1\u8272 | Dark").setValue(this.plugin.settings.colorScheme).onChange(async (value) => {
-      this.plugin.settings.colorScheme = value;
-      await this.plugin.saveSettings();
-      window.location.reload();
     }));
     containerEl.createEl("h4", { text: "\u8272\u5F69\u5DE5\u574A | Custom Themes" });
     new import_obsidian.Setting(containerEl).setName("\u65B0\u589E\u8C03\u8272\u677F").setDesc("\u81EA\u52A8\u7EE7\u627F\u5F53\u524D\u9009\u4E2D\u4E3B\u9898\u7684\u914D\u8272\u4E0E\u52A8\u753B\u5E03\u5C40\uFF0C\u521B\u5EFA\u4E13\u5C5E\u4E3B\u9898\u3002").addButton((btn) => btn.setButtonText("\u6DFB\u52A0\u4E3B\u9898").onClick(async () => {
