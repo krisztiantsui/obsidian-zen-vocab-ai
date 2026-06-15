@@ -1348,8 +1348,10 @@ export default class ZenVocabAIPlugin extends Plugin {
         document.body.classList.toggle('vocab-scheme-light', !isDark);
         document.body.classList.toggle('vocab-scheme-dark', isDark);
 
-        // Same palette for both; light mode bumps alpha values in CSS
-        const z = { c: '#92f7e6', cr: '146,247,230', p: '#ff6b9c', pr: '255,107,156', b: '#70a0ff', br: '112,160,255', g: '#5b8e39', gr: '91,142,57', i: '#7c7c92', ir: '124,124,146' };
+        // Dark: fluorescent palette. Light: grounded palette for white backgrounds.
+        const z = isDark
+            ? { c: '#92f7e6', cr: '146,247,230', p: '#ff6b9c', pr: '255,107,156', b: '#70a0ff', br: '112,160,255', g: '#5b8e39', gr: '91,142,57', i: '#7c7c92', ir: '124,124,146' }
+            : { c: '#4a9e8a', cr: '74,158,138', p: '#c44a6e', pr: '196,74,110', b: '#4a6fd4', br: '74,111,212', g: '#4a7a2e', gr: '74,122,46', i: '#6b6b80', ir: '107,107,128' };
         document.body.style.setProperty('--zen-cyan', z.c);
         document.body.style.setProperty('--zen-cyan-rgb', z.cr);
         document.body.style.setProperty('--zen-pink', z.p);
