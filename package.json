@@ -1,6 +1,6 @@
 {
   "name": "obsidian-zen-vocab-ai",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "中英双语AI词汇学习与复习插件",
   "main": "main.js",
   "scripts": {

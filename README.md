@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.0.0-ff6b9c?style=flat-square" alt="version"/>
+  <img src="https://img.shields.io/badge/version-3.1.0-ff6b9c?style=flat-square" alt="version"/>
   <img src="https://img.shields.io/badge/Obsidian-0.15%2B-7c3aed?style=flat-square" alt="obsidian"/>
   <img src="https://img.shields.io/badge/license-MIT-92f7e6?style=flat-square" alt="license"/>
 </p>
