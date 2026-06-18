@@ -143,6 +143,23 @@ _\u9002\u5408\uFF1A\u5750\u4E0D\u4F4F\u7684\u4EBA\u3001\u52A8\u624B\u578B\u5B66\
 > 
 > \u{1F5E3}\uFE0F **\u81EA\u8A00\u81EA\u8BED\u53E5\uFF1A** [\u4E00\u53E5\u4F60\u53EF\u4EE5\u5BF9\u81EA\u5DF1\u8BF4\u7684\u8BDD\uFF0C\u5728\u7279\u5B9A\u573A\u666F\u4E0B\u4F7F\u7528\u3002\u6BD4\u5982\u6BCF\u6B21\u6253\u5F00\u51B0\u7BB1\u65F6\u8BF4\uFF1A"The fridge is utterly empty. I am devastated."]
 
+### \u{1F9E9} \u65B9\u6CD5E\uFF1A\u56FE\u50CF\u4EE3\u7801\u6CD5 (Image Code)
+_\u9002\u5408\uFF1A\u89C6\u89C9\u578B\u5B66\u4E60\u8005\u3001\u559C\u6B22\u7528\u753B\u9762\u548C\u6545\u4E8B\u8BB0\u5355\u8BCD\u7684\u4EBA_
+
+**\u6838\u5FC3\u539F\u7406\uFF1A** \u628A\u62BD\u8C61\u82F1\u6587\u5B57\u6BCD\u8F6C\u5316\u4E3A\u5177\u8C61\u3001\u5938\u5F20\u3001\u6709\u753B\u9762\u7684\u56FE\u50CF\uFF0C\u7F16\u6210\u8352\u8BDE\u6545\u4E8B\u4E0E\u4E2D\u6587\u610F\u601D\u9501\u6B7B\u3002
+
+**\u5B57\u6BCD\u2192\u56FE\u50CF\u4EE3\u7801\u5E93\uFF08\u901F\u67E5\u8868\uFF09\uFF1A** A=\u82F9\u679C/\u5C16\u5854 B=\u7537\u5B69/\u7B14 C=\u6708\u4EAE/\u732B D=\u72D7/\u5F13 E=\u9E45/\u773C\u775B F=\u62D0\u6756/\u98DE G=\u54E5\u54E5/\u9E3D\u5B50 H=\u6905\u5B50/\u6865 I=\u8721\u70DB/\u6811\u5E72 J=\u94A9\u5B50/\u9C7C\u94A9 K=\u673A\u5173\u67AA/\u56FD\u738B L=\u9774\u5B50/\u68CD\u5B50 M=\u9EA6\u5F53\u52B3/\u5C71\u5CF0 N=\u95E8/\u6CE5\u5DF4 O=\u592A\u9633/\u9E21\u86CB P=\u65D7\u5E1C/\u732A Q=\u6C14\u7403/\u4F01\u9E45 R=\u5C0F\u8349/\u4EBA S=\u86C7/\u4E1D T=\u96E8\u4F1E/\u9524\u5B50 U=\u676F\u5B50/\u9A6C\u8E44\u94C1 V=\u6F0F\u6597/\u526A\u5200 W=\u7687\u51A0/\u6C34\u6CE2 X=\u526A\u5200/\u53C9\u53F7 Y=\u6811\u6748/\u5F39\u5F13 Z=\u95EA\u7535/\u9E2D\u5B50
+
+**\u7EC4\u5408\u4EE3\u7801\uFF08\u901F\u67E5\uFF09\uFF1A** oo=\u773C\u955C ee=\u4E24\u53EA\u773C\u775B ll=\u7B77\u5B50 sh=\u5618\u58F0 ch=\u706B\u8F66 th=\u820C\u5934 ph=\u76F8\u673A wh=\u95EE\u53F7 gh=\u5E7D\u7075 ck=\u516C\u9E21 qu=\u5973\u738B tr=\u706B\u8F66 dr=\u9F13 br=\u626B\u5E1A cr=\u8783\u87F9 gr=\u8461\u8404 pr=\u738B\u5B50 fr=\u9752\u86D9 st=\u661F\u661F sp=\u8718\u86DB str=\u8857\u9053 tion=\u795E/\u9F7F\u8F6E com=\u68B3\u5B50
+
+> \u{1F3A8} **\u56FE\u50CF\u4EE3\u7801\u62C6\u89E3\uFF1A** [\u628A\u76EE\u6807\u5355\u8BCD\u6309\u5B57\u6BCD/\u7EC4\u5408\u62C6\u5F00\uFF0C\u6BCF\u4E2A\u90E8\u5206\u8D4B\u4E88\u56FE\u50CF\u3002\u683C\u5F0F\uFF1A\u5355\u8BCD\u2192\u62C6\u89E3\uFF0C\u6BCF\u6BB5\u6807\u6CE8\u5BF9\u5E94\u56FE\u50CF\u3002]
+>    \u4F8B\uFF1Achampion \u2192 cham(\u706B\u8F66ch+\u662Fam) + pion(\u65D7p+\u795Etion) \u2192 \u706B\u8F66\u4E0A\u662F\u4E3E\u7740\u65D7\u7684\u795E \u2192 **\u51A0\u519B**
+>    \u4F8B\uFF1Abrilliant \u2192 br(\u626B\u5E1A) + ill(\u751F\u75C5) + i(\u8721\u70DB) + ant(\u8682\u8681) \u2192 \u626B\u5E1A\u626B\u6389\u751F\u75C5\u7684\u8721\u70DB\u548C\u8682\u8681\u2192**\u6770\u51FA\u7684/\u660E\u4EAE\u7684**
+>
+> \u{1F4D6} **\u8352\u8BDE\u6545\u4E8B\u94FE\uFF1A** [\u7528\u4EE5\u4E0A\u56FE\u50CF\u7F163-5\u53E5\u5FAE\u578B\u8352\u8BDE\u6545\u4E8B\u3002\u8981\u6C42\uFF1A\u6709\u5177\u4F53\u89D2\u8272\u3001\u5938\u5F20\u60C5\u8282\u53CD\u8F6C\u3001\u628A\u5355\u8BCD\u542B\u4E49\u878D\u5165\u7ED3\u5C40\u3002\u6545\u4E8B\u8D8A\u79BB\u8C31\u8BB0\u5FC6\u8D8A\u7262\u56FA\uFF01]
+>
+> \u{1F4A5} **\u7206\u7834\u753B\u9762\uFF1A** [\u7528\u4E00\u53E5\u8BDD\u753B\u9F99\u70B9\u775B\u2014\u2014\u6545\u4E8B\u4E2D\u6700\u5938\u5F20\u6700\u96BE\u5FD8\u7684\u77AC\u95F4\u662F\u4EC0\u4E48\uFF1F\u7528\u89C6\u89C9\u8BED\u8A00\u63CF\u8FF0\u3002]
+
 ## 4. \u5B9E\u6218\u64CD\u7EC3
 
 ### \u{1F3AC} \u6C89\u6D78\u5F0F\u4F8B\u53E5
@@ -219,7 +236,10 @@ _\u9002\u5408\uFF1A\u5750\u4E0D\u4F4F\u7684\u4EBA\u3001\u52A8\u624B\u578B\u5B66\
 
 > \u{1F4A1} **\u4E2D\u82F1\u601D\u7EF4\u5207\u6362\u70B9\uFF1A** [\u8FD9\u53E5\u8BDD\u66B4\u9732\u4E86\u4E2D\u82F1\u6587\u601D\u7EF4\u7684\u54EA\u4E2A\u5173\u952E\u5DEE\u5F02\uFF1F\u8BB0\u4F4F\u8FD9\u4E2A\u5DEE\u5F02\uFF0C\u4EE5\u540E\u8FD9\u7C7B\u53E5\u5B50\u90FD\u4F1A\u4E86]
 > \u{1F9E0} **3\u79D2\u81EA\u6D4B\uFF1A** [\u906E\u4F4F\u539F\u6587\uFF0C\u53EA\u770B\u4E2D\u6587\u7FFB\u8BD1\uFF0C\u4F60\u80FD\u8FD8\u539F\u51FA\u82F1\u6587\u5417\uFF1F\u8BD5\u8BD5\uFF01]`,
-  promptVersion: 2
+  promptVersion: 3,
+  // Image Code Mnemonic settings
+  mnemonicEnabled: true,
+  mnemonicCodePath: "Vocab/Image_Code_Library.md"
 };
 var VocabCalendarModal = class extends import_obsidian.Modal {
   constructor(app, view) {
@@ -231,6 +251,9 @@ var VocabCalendarModal = class extends import_obsidian.Modal {
   async onOpen() {
     this.contentEl.empty();
     this.contentEl.addClass("vocab-calendar-modal");
+    const closeBtn = this.modalEl.querySelector(".modal-close-button");
+    if (closeBtn)
+      closeBtn.addClass("vocab-modal-close-btn");
     this.view.allVocabsForCalendar = await this.view.plugin.loadVocabs(this.view.currentMode);
     this.renderContent();
   }
@@ -1559,6 +1582,17 @@ ${text}` }
       return url;
     return `${url.replace(/\/$/, "")}/chat/completions`;
   }
+  // ─── Image Code Mnemonic ─────────────────────────────
+  async loadMnemonicCodeLibrary() {
+    if (!this.settings.mnemonicEnabled)
+      return "";
+    const path = (0, import_obsidian.normalizePath)(this.settings.mnemonicCodePath || "Vocab/Image_Code_Library.md");
+    const file = this.app.vault.getAbstractFileByPath(path);
+    if (file instanceof import_obsidian.TFile) {
+      return await this.app.vault.read(file);
+    }
+    return "";
+  }
   // ─── Settings ───────────────────────────────────────
   async loadSettings() {
     const loadedData = await this.loadData() || {};
@@ -1787,6 +1821,15 @@ var ZenVocabSettingTab = class extends import_obsidian.PluginSettingTab {
       this.plugin.settings.transSystemPrompt = DEFAULT_SETTINGS.transSystemPrompt;
       await this.plugin.saveSettings();
       this.display();
+    }));
+    containerEl.createEl("h3", { text: "\u{1F9E9} \u56FE\u50CF\u4EE3\u7801\u6CD5 | Image Code Mnemonic", cls: "vocab-settings-header" });
+    new import_obsidian.Setting(containerEl).setName("\u542F\u7528\u56FE\u50CF\u4EE3\u7801\u6CD5 | Enable Image Code").setDesc('\u5728 AI \u8BCD\u6C47\u89E3\u6790\u4E2D\u6DFB\u52A0"\u65B9\u6CD5E\uFF1A\u56FE\u50CF\u4EE3\u7801\u6CD5"\u8BB0\u5FC6\u8DEF\u5F84').addToggle((toggle) => toggle.setValue(this.plugin.settings.mnemonicEnabled).onChange(async (value) => {
+      this.plugin.settings.mnemonicEnabled = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian.Setting(containerEl).setName("\u4EE3\u7801\u5E93\u6587\u4EF6\u8DEF\u5F84 | Code Library Path").setDesc("\u56FE\u50CF\u4EE3\u7801\u5E93\u5728 Obsidian \u5E93\u4E2D\u7684\u4F4D\u7F6E\uFF0C\u4F9B API \u548C\u624B\u52A8\u67E5\u9605\u4F7F\u7528").addText((text) => text.setValue(this.plugin.settings.mnemonicCodePath).setPlaceholder("Vocab/Image_Code_Library.md").onChange(async (value) => {
+      this.plugin.settings.mnemonicCodePath = value;
+      await this.plugin.saveSettings();
     }));
     containerEl.createEl("h3", { text: "\u2615 \u652F\u6301\u5F00\u53D1 | Buy Me a Coffee", cls: "vocab-settings-header" });
     const donateSection = containerEl.createDiv({ cls: "vocab-donate-section" });

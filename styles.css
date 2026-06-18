@@ -734,6 +734,7 @@ button.vocab-btn-save.is-primary-action:hover,
     align-items: center;
     margin-bottom: 18px;
     padding-bottom: 14px;
+    padding-right: 26px;
     border-bottom: 1px solid rgba(var(--zen-cyan-rgb), 0.1);
 }
 
@@ -741,6 +742,13 @@ button.vocab-btn-save.is-primary-action:hover,
     font-size: calc(16px * var(--vocab-font-scale, 1));
     font-weight: 650;
     color: var(--zen-pink);
+}
+
+/* Modal close button — round to match pill design */
+.vocab-modal-close-btn {
+    border-radius: 50% !important;
+    top: 8px !important;
+    right: 8px !important;
 }
 
 .vocab-calendar-body {
@@ -961,7 +969,7 @@ button.vocab-btn-save.is-primary-action:hover,
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: var(--zen-radius-xs);
+    border-radius: 999px;
     font-size: calc(13px * var(--vocab-font-scale, 1));
     cursor: pointer;
     color: var(--text-normal);
